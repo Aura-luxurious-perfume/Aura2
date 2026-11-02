@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أثير | العطور الفاخرة والنيش</title>
+    <title>AURA| العطور الفاخرة والنيش</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -607,7 +607,7 @@
         let cart = JSON.parse(localStorage.getItem('atheer_cart')) || [];
         let orders = JSON.parse(localStorage.getItem('atheer_orders')) || [];
         let settings = JSON.parse(localStorage.getItem('atheer_settings')) || {
-            brandName: "أثــيـر",
+            brandName: "AURA",
             brandSlogan: "A T H E E R • LUXURY PERFUMES",
             bannerText: "✨ شحن مجاني لجميع الطلبات الفاخرة عند الشراء بأكثر من 1500 ج.م",
             adminPassword: "admin123"
@@ -945,7 +945,7 @@
             orders.unshift(newOrder);
             saveOrdersToStorage();
 
-            let waMsg = `✨ *طلب جديد من متجر أثير* ✨\n\n`;
+            let waMsg = `✨ *طلب جديد من متجر AURA* ✨\n\n`;
             waMsg += `📌 *رقم الطلب:* ${orderId}\n`;
             waMsg += `👤 *الاسم:* ${name}\n`;
             waMsg += `📞 *الهاتف:* ${phone}\n`;
@@ -1124,8 +1124,8 @@
                 localStorage.clear();
                 products = [...DEFAULT_PRODUCTS];
                 settings = {
-                    brandName: "أثــيـر",
-                    brandSlogan: "A T H E E R • LUXURY PERFUMES",
+                    brandName: "Aura",
+                    brandSlogan: "A U R A  • LUXURY PERFUMES",
                     bannerText: "✨ شحن مجاني لجميع الطلبات الفاخرة عند الشراء بأكثر من 1500 ج.م",
                     adminPassword: "admin123"
                 };
