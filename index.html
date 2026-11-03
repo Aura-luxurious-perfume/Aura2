@@ -385,7 +385,7 @@
                 </div>
 
                 <button type="submit" class="w-full py-3.5 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-xl text-xs shadow-lg mt-4">
-                    تأكيد اختيار العطور وإضافة البوكس للسلة
+                    تأكيد اختيار العطور وإضافة البوكس للسلة (250 ج.م)
                 </button>
             </form>
         </div>
@@ -680,7 +680,7 @@
                 id: "box_aura",
                 name: "AURA -- BOX",
                 category: "niche",
-                price: 2500,
+                price: 250,
                 rating: 5.0,
                 concentration: "مجموعة تجريبية فاخرة",
                 image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80",
@@ -734,6 +734,15 @@
         let pendingOrderData = null;
 
         window.onload = function() {
+            // Force fix existing cached box_aura price if it was stored as 2500 in localStorage
+            products = products.map(p => {
+                if (p.id === "box_aura" || p.name.includes("AURA -- BOX")) {
+                    return { ...p, price: 250 };
+                }
+                return p;
+            });
+            saveProductsToStorage();
+
             applySettings();
             renderProducts();
             updateCartUI();
@@ -744,7 +753,7 @@
 
         function getBestSellerProduct() {
             if (!orders || orders.length === 0) {
-                return products.find(p => p.id !== "box_aura") || products[0];
+                return products.find(p => !p.name.includes("AURA -- BOX")) || products[0];
             }
             let salesCount = {};
             orders.forEach(order => {
@@ -899,7 +908,7 @@
                 return matchCategory && matchSearch;
             });
 
-            // Ensure AURA -- BOX is always rendered first in 'all' category or when no search filter applies
+            // Ensure AURA -- BOX is always rendered first
             filtered.sort((a, b) => {
                 if (a.name.includes('AURA -- BOX')) return -1;
                 if (b.name.includes('AURA -- BOX')) return 1;
@@ -1004,12 +1013,13 @@
             const boxProd = products.find(p => p.id === "box_aura") || {
                 id: "box_aura",
                 name: "AURA -- BOX",
-                price: 2500,
+                price: 250,
                 image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80"
             };
 
             const boxCartItem = {
                 ...boxProd,
+                price: 250,
                 id: "box_aura_" + Date.now(),
                 customDetails: `العطور التجريبية المختارة (15 مل لكل زجاجة): [1. ${p1} | 2. ${p2} | 3. ${p3}]`,
                 quantity: 1
