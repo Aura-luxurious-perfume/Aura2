@@ -367,25 +367,25 @@
         <div class="glass-panel w-full max-w-xl rounded-3xl p-6 sm:p-8 border border-gold-500/40 relative max-h-[90vh] overflow-y-auto text-right">
             <button onclick="closeBoxModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
 
-            <h3 class="text-xl font-bold text-gold-400 font-serif mb-2">تخصيص بوكس AURA -- BOX</h3>
-            <p class="text-xs text-gray-300 mb-6">يرجى اختيار 3 عطور مختلفة من القائمة:</p>
+            <h3 class="text-xl font-bold text-gold-400 font-serif mb-2">تخصيص بوكس التجربة الملكية (AURA -- BOX)</h3>
+            <p class="text-xs text-gray-300 mb-6">اختار 3 عطور مختلفة (كل زجاجة 15 مل) لتكتشف رائحتك المفضلة قبل طلب الزجاجة الكبيرة:</p>
 
             <form onsubmit="confirmBoxSelection(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs text-gold-400 font-bold mb-1">العطر الأول:</label>
+                    <label class="block text-xs text-gold-400 font-bold mb-1">العطر التجريبي الأول (15 مل):</label>
                     <select id="box-perfume-1" onchange="updateBoxOptions()" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
                 </div>
                 <div>
-                    <label class="block text-xs text-gold-400 font-bold mb-1">العطر الثاني:</label>
+                    <label class="block text-xs text-gold-400 font-bold mb-1">العطر التجريبي الثاني (15 مل):</label>
                     <select id="box-perfume-2" onchange="updateBoxOptions()" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
                 </div>
                 <div>
-                    <label class="block text-xs text-gold-400 font-bold mb-1">العطر الثالث:</label>
+                    <label class="block text-xs text-gold-400 font-bold mb-1">العطر التجريبي الثالث (15 مل):</label>
                     <select id="box-perfume-3" onchange="updateBoxOptions()" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
                 </div>
 
                 <button type="submit" class="w-full py-3.5 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-xl text-xs shadow-lg mt-4">
-                    تأكيد وإضافة البوكس للسلة
+                    تأكيد اختيار العطور وإضافة البوكس للسلة
                 </button>
             </form>
         </div>
@@ -682,9 +682,9 @@
                 category: "niche",
                 price: 2500,
                 rating: 5.0,
-                concentration: "مجموعة فاخرة",
+                concentration: "مجموعة تجريبية فاخرة",
                 image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80",
-                description: "صندوق فاخر مخصص يتكون من اختيارك لـ 3 عطور مختلفة."
+                description: "اكتشف عالم أثير الملكي! بوكس تجريبي يتكون من 3 زجاجات مختلفة (كل زجاجة 15 مل)، لتجربة الروائح واستكشاف عطرك المفضل قبل طلب الزجاجة الكبيرة."
             },
             {
                 id: "p1",
@@ -899,6 +899,13 @@
                 return matchCategory && matchSearch;
             });
 
+            // Ensure AURA -- BOX is always rendered first in 'all' category or when no search filter applies
+            filtered.sort((a, b) => {
+                if (a.name.includes('AURA -- BOX')) return -1;
+                if (b.name.includes('AURA -- BOX')) return 1;
+                return 0;
+            });
+
             if (sortVal === 'price-low') filtered.sort((a, b) => a.price - b.price);
             else if (sortVal === 'price-high') filtered.sort((a, b) => b.price - a.price);
 
@@ -911,20 +918,22 @@
 
             grid.innerHTML = filtered.map(p => {
                 const isBest = bestSeller && bestSeller.id === p.id;
+                const isBox = p.name.includes('AURA -- BOX');
                 return `
-                    <div class="glass-panel rounded-2xl p-4 border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 flex flex-col justify-between">
+                    <div class="glass-panel rounded-2xl p-4 border ${isBox ? 'border-gold-500/70 bg-gold-500/5' : 'border-gold-500/20'} hover:border-gold-500/80 transition-all duration-300 flex flex-col justify-between">
                         <div>
-                            <div class="relative w-full h-56 rounded-xl overflow-hidden bg-black/40 mb-4 cursor-pointer" onclick="openProductDetailModal('${p.id}')">
+                            <div class="relative w-full h-56 rounded-xl overflow-hidden bg-black/40 mb-4 cursor-pointer" onclick="${isBox ? 'openBoxModal()' : `openProductDetailModal('${p.id}')`}">
                                 ${isBest ? '<span class="absolute top-2 right-2 bg-gold-500 text-black font-extrabold text-[10px] px-2.5 py-1 rounded-md z-10 shadow-lg">الأكثر مبيعاً 🏆</span>' : ''}
+                                ${isBox ? '<span class="absolute top-2 left-2 bg-gradient-to-r from-gold-600 to-gold-400 text-black font-black text-[10px] px-3 py-1 rounded-md z-10 shadow-lg animate-pulse">✨ عرض التجربة الملكية</span>' : ''}
                                 <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
                             </div>
-                            <h4 class="font-bold text-gray-100 text-base cursor-pointer hover:text-gold-400" onclick="openProductDetailModal('${p.id}')">${p.name}</h4>
-                            <p class="text-gray-400 text-xs line-clamp-2 my-2 leading-relaxed">${p.description}</p>
+                            <h4 class="font-bold text-gray-100 text-base cursor-pointer hover:text-gold-400" onclick="${isBox ? 'openBoxModal()' : `openProductDetailModal('${p.id}')`}">${p.name}</h4>
+                            <p class="text-gray-400 text-xs line-clamp-3 my-2 leading-relaxed">${p.description}</p>
                         </div>
                         <div class="pt-3 border-t border-gray-800 flex justify-between items-center">
                             <span class="text-gold-400 font-extrabold text-base">${p.price} ج.م</span>
-                            <button onclick="addToCart('${p.id}')" class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-lg text-xs shadow-md">
-                                <i class="fas fa-cart-plus ml-1"></i> ${p.name.includes('AURA -- BOX') ? 'تخصيص البوكس' : 'إضافـة'}
+                            <button onclick="${isBox ? 'openBoxModal()' : `addToCart('${p.id}')`}" class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-lg text-xs shadow-md">
+                                <i class="fas fa-cart-plus ml-1"></i> ${isBox ? 'تخصيص البوكس الان' : 'إضافـة'}
                             </button>
                         </div>
                     </div>
@@ -1002,7 +1011,7 @@
             const boxCartItem = {
                 ...boxProd,
                 id: "box_aura_" + Date.now(),
-                customDetails: `العطور المختارة: [1. ${p1} | 2. ${p2} | 3. ${p3}]`,
+                customDetails: `العطور التجريبية المختارة (15 مل لكل زجاجة): [1. ${p1} | 2. ${p2} | 3. ${p3}]`,
                 quantity: 1
             };
 
@@ -1011,7 +1020,7 @@
             updateCartUI();
             closeBoxModal();
             toggleCartModal(true);
-            showToast("تم إضافة AURA -- BOX المخصص لسلتك");
+            showToast("تم إضافة بوكس التجربة الملكية بنجاح!");
         }
 
         function toggleCartModal(show) {
@@ -1092,6 +1101,11 @@
             const product = products.find(p => p.id === id);
             if (!product) return;
 
+            if (product.name.includes('AURA -- BOX')) {
+                openBoxModal();
+                return;
+            }
+
             const modal = document.getElementById('product-detail-modal');
             const content = document.getElementById('product-detail-content');
 
@@ -1104,9 +1118,7 @@
                     <p class="text-xs text-gray-300">${product.description}</p>
                     <div class="flex items-center justify-between border-t border-gray-800 pt-3">
                         <span class="text-2xl font-black text-gold-400">${product.price} ج.م</span>
-                        <button onclick="addToCart('${product.id}'); closeProductDetailModal();" class="px-6 py-3 bg-gold-500 text-black font-extrabold rounded-xl text-xs">
-                            ${product.name.includes('AURA -- BOX') ? 'تخصيص البوكس' : 'إضافة للسلة'}
-                        </button>
+                        <button onclick="addToCart('${product.id}'); closeProductDetailModal();" class="px-6 py-3 bg-gold-500 text-black font-extrabold rounded-xl text-xs">إضافة للسلة</button>
                     </div>
                 </div>
             `;
@@ -1197,7 +1209,6 @@
                 status: "قيد الانتظار"
             };
 
-            // Display Invoice Modal
             document.getElementById('invoice-order-id').innerText = orderId;
             document.getElementById('inv-name').innerText = name;
             document.getElementById('inv-phone').innerText = phone;
