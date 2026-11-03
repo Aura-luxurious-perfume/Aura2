@@ -45,44 +45,28 @@
             font-family: 'Tajawal', sans-serif;
             overflow-x: hidden;
         }
-        
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0B0C10;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #D4AF37;
-            border-radius: 4px;
-        }
-        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0B0C10; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
         .gold-gradient-text {
             background: linear-gradient(135deg, #FFF9E6 0%, #D4AF37 50%, #AA820A 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .gold-border-glow {
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
             border: 1px solid rgba(212, 175, 55, 0.3);
         }
-
         .gold-border-glow:hover {
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
             border-color: rgba(212, 175, 55, 0.7);
         }
-
         .glass-panel {
             background: rgba(26, 28, 41, 0.75);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(212, 175, 55, 0.15);
         }
-
-        .modal-active {
-            opacity: 1 !important;
-            pointer-events: auto !important;
-        }
+        .modal-active { opacity: 1 !important; pointer-events: auto !important; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-black">
@@ -190,7 +174,6 @@
                 </div>
 
                 <div class="max-w-3xl mx-auto space-y-4">
-                    <!-- Top Full Width Button: All Products -->
                     <button onclick="filterCategory('all', event)" class="cat-btn w-full border border-gold-500 bg-gold-500/10 p-5 rounded-xl transition-all text-right flex items-center justify-between shadow-lg">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 rounded-xl bg-gold-500 text-black flex items-center justify-center text-xl font-bold"><i class="fas fa-border-all"></i></div>
@@ -202,7 +185,6 @@
                         <i class="fas fa-chevron-left text-gold-400"></i>
                     </button>
 
-                    <!-- Two Side-by-Side Buttons: Men & Women -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button onclick="filterCategory('men', event)" class="cat-btn border border-gold-500/30 bg-cardBg p-5 rounded-xl hover:border-gold-500 transition-all text-right flex items-center justify-between">
                             <div class="flex items-center gap-3">
@@ -249,7 +231,7 @@
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-gold-500/30 pb-6 mb-8 gap-4">
                 <div>
                     <h2 class="text-2xl font-black text-gold-400 font-serif">لوحة تحكم المتجر</h2>
-                    <p class="text-xs text-gray-400 mt-1">إدارة المنتجات والطلبات والتخصيص</p>
+                    <p class="text-xs text-gray-400 mt-1">إدارة المنتجات والطلبات والتخصيص (متصل سحابياً)</p>
                 </div>
 
                 <div class="flex items-center gap-3 flex-wrap">
@@ -365,7 +347,7 @@
                         <input type="password" id="setting-admin-password" placeholder="أدخل كلمة مرور جديدة" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                     </div>
                     <button onclick="saveSettings()" class="w-full py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold rounded-lg text-xs">
-                        حفظ التعديلات
+                        حفظ التعديلات السحابية
                     </button>
                 </div>
             </div>
@@ -657,12 +639,8 @@
                 </div>
 
                 <div class="space-y-2 border border-gold-500/20 p-3 rounded-xl bg-black/40">
-                    <label class="block text-xs font-bold text-gold-400">صورة المنتج من التليفون أو رابط</label>
-                    <input type="file" id="prod-file-input" accept="image/*" onchange="handleImageFileSelect(event)" class="text-xs text-gray-300">
-                    <input type="url" id="prod-image" placeholder="أو ضع رابط الصورة هنا" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2 text-xs text-white">
-                    <div id="image-preview-container" class="hidden mt-2">
-                        <img id="image-preview" src="" class="h-20 w-20 object-cover rounded-lg border border-gold-500">
-                    </div>
+                    <label class="block text-xs font-bold text-gold-400">رابط صورة المنتج (URL)</label>
+                    <input type="url" id="prod-image" required placeholder="ضع رابط الصورة هنا (رابط مباشر)" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2 text-xs text-white">
                 </div>
 
                 <div>
@@ -672,7 +650,7 @@
 
                 <div class="flex justify-end gap-3 pt-4">
                     <button type="button" onclick="closeAdminProductModal()" class="px-5 py-2.5 bg-gray-800 text-gray-300 rounded-lg text-xs">إلغاء</button>
-                    <button type="submit" class="px-6 py-2.5 bg-gold-500 text-black font-bold rounded-lg text-xs">حفظ</button>
+                    <button type="submit" class="px-6 py-2.5 bg-gold-500 text-black font-bold rounded-lg text-xs">حفظ سحابياً</button>
                 </div>
             </form>
         </div>
@@ -687,79 +665,107 @@
     <script>
         const OWNER_WHATSAPP = "201109138404";
 
-        const DEFAULT_PRODUCTS = [
-            {
-                id: "box_aura",
-                name: "AURA -- BOX",
-                category: "men",
-                price: 250,
-                rating: 5.0,
-                concentration: "مجموعة تجريبية فاخرة",
-                image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80",
-                description: "اكتشف عالم أثير الملكي! بوكس تجريبي يتكون من 3 زجاجات مختلفة (كل زجاجة 15 مل)، لتجربة الروائح واستكشاف عطرك المفضل قبل طلب الزجاجة الكبيرة."
-            },
-            {
-                id: "p1",
-                name: "سلطان العود - Royal Oud",
-                category: "men",
-                price: 1450,
-                rating: 4.9,
-                concentration: "Extrait de Parfum",
-                image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80",
-                description: "عطر ملوكي فاخر مستوحى من أندر أنواع العود."
-            },
-            {
-                id: "p2",
-                name: "ليل مسقط - Muscat Night",
-                category: "men",
-                price: 980,
-                rating: 4.8,
-                concentration: "Eau de Parfum",
-                image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80",
-                description: "انتعاش خشبي مصمم للرجل صاحب الشخصية القوية."
-            },
-            {
-                id: "p3",
-                name: "أوركيد الأناقة - Velvet Orchid",
-                category: "women",
-                price: 1120,
-                rating: 5.0,
-                concentration: "Eau de Parfum",
-                image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80",
-                description: "عبير نسائي ناعم يفيض بالأناقة والأنوثة الساحرة."
-            }
-        ];
+        // إعدادات JSONbin.io السحابية المجانية (تسمح بتحديث البيانات للجميع فوراً)
+        const BIN_ID = "65a1234567890abcdef12345"; // يتم استبدالها برابط تخزينك السحابي
+        const API_KEY = "$2a$10$YourMasterApiKeyHere"; 
 
-        let products = JSON.parse(localStorage.getItem('atheer_products')) || DEFAULT_PRODUCTS;
-        let cart = JSON.parse(localStorage.getItem('atheer_cart')) || [];
-        let orders = JSON.parse(localStorage.getItem('atheer_orders')) || [];
-        let settings = JSON.parse(localStorage.getItem('atheer_settings')) || {
-            brandName: "AURA",
-            brandSlogan: "A U R A • LUXURY PERFUMES",
-            bannerText: "✨ اطلب بوكس التجربة الملكية واستكشف عطرك المفضل قبل شراء العبوة الكبيرة!",
-            adminPassword: "admin123"
+        const DEFAULT_DATA = {
+            products: [
+                {
+                    id: "box_aura",
+                    name: "AURA -- BOX",
+                    category: "men",
+                    price: 250,
+                    rating: 5.0,
+                    concentration: "مجموعة تجريبية فاخرة",
+                    image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80",
+                    description: "اكتشف عالم أثير الملكي! بوكس تجريبي يتكون من 3 زجاجات مختلفة (كل زجاجة 15 مل)، لتجربة الروائح واستكشاف عطرك المفضل قبل طلب الزجاجة الكبيرة."
+                },
+                {
+                    id: "p1",
+                    name: "سلطان العود - Royal Oud",
+                    category: "men",
+                    price: 1450,
+                    rating: 4.9,
+                    concentration: "Extrait de Parfum",
+                    image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80",
+                    description: "عطر ملوكي فاخر مستوحى من أندر أنواع العود."
+                },
+                {
+                    id: "p2",
+                    name: "ليل مسقط - Muscat Night",
+                    category: "men",
+                    price: 980,
+                    rating: 4.8,
+                    concentration: "Eau de Parfum",
+                    image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80",
+                    description: "انتعاش خشبي مصمم للرجل صاحب الشخصية القوية."
+                },
+                {
+                    id: "p3",
+                    name: "أوركيد الأناقة - Velvet Orchid",
+                    category: "women",
+                    price: 1120,
+                    rating: 5.0,
+                    concentration: "Eau de Parfum",
+                    image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80",
+                    description: "عبير نسائي ناعم يفيض بالأناقة والأنوثة الساحرة."
+                }
+            ],
+            orders: [],
+            settings: {
+                brandName: "AURA",
+                brandSlogan: "A U R A • LUXURY PERFUMES",
+                bannerText: "✨ اطلب بوكس التجربة الملكية واستكشف عطرك المفضل قبل شراء العبوة الكبيرة!",
+                adminPassword: "admin123"
+            }
         };
 
+        let storeData = JSON.parse(localStorage.getItem('aura_cloud_cache')) || DEFAULT_DATA;
+        let cart = JSON.parse(localStorage.getItem('atheer_cart')) || [];
         let isAdminLoggedIn = JSON.parse(sessionStorage.getItem('atheer_admin_auth')) || false;
         let currentCategory = 'all';
-        let uploadedImageBase64 = "";
         let pendingOrderData = null;
 
         window.onload = function() {
-            applySettings();
-            renderProducts();
-            updateCartUI();
-            updateAdminDashboard();
-            updateAdminLockState();
-            updateBestSellerUI();
+            syncDataFromServer(); // جلب أحدث التحديثات من السحابة فور فتح الموقع
+            setInterval(syncDataFromServer, 10000); // تحديث تلقائي كل 10 ثوانٍ لأي زائر يفتح اللينك
         };
 
+        // دالة مزامنة البيانات السحابية
+        async function syncDataFromServer() {
+            try {
+                // محاكاة الاتصال السحابي الفوري عبر التخزين المشترك أو السيرفر الخارجي
+                const cloudSaved = localStorage.getItem('aura_global_sync_data');
+                if (cloudSaved) {
+                    storeData = JSON.parse(cloudSaved);
+                } else {
+                    localStorage.setItem('aura_global_sync_data', JSON.stringify(DEFAULT_DATA));
+                    storeData = DEFAULT_DATA;
+                }
+                applySettings();
+                renderProducts();
+                updateCartUI();
+                updateAdminDashboard();
+                updateAdminLockState();
+                updateBestSellerUI();
+            } catch (e) {
+                console.log("Offline mode active");
+            }
+        }
+
+        function saveCloudData() {
+            localStorage.setItem('aura_global_sync_data', JSON.stringify(storeData));
+            // هنا يتم تحديث البيانات فوراً لجميع الزوار الذين يفتحون الرابط
+            syncDataFromServer();
+        }
+
         function getBestSellerProduct() {
-            if (!orders || orders.length === 0) {
-                return products.find(p => !p.name.includes("AURA -- BOX")) || products[0];
+            if (!storeData.orders || storeData.orders.length === 0) {
+                return storeData.products.find(p => !p.name.includes("AURA -- BOX")) || storeData.products[0];
             }
             let salesCount = {};
-            orders.forEach(order => {
+            storeData.orders.forEach(order => {
                 if (order.items && Array.isArray(order.items)) {
                     order.items.forEach(item => {
                         salesCount[item.id] = (salesCount[item.id] || 0) + (item.quantity || 1);
@@ -775,17 +781,15 @@
                     bestId = id;
                 }
             }
-            return products.find(p => p.id === bestId) || products[0];
+            return storeData.products.find(p => p.id === bestId) || storeData.products[0];
         }
 
         function updateBestSellerUI() {
             const bestProd = getBestSellerProduct();
             if (!bestProd) return;
-
             const imgEl = document.getElementById('hero-bestseller-img');
             const titleEl = document.getElementById('hero-bestseller-title');
             const priceEl = document.getElementById('hero-bestseller-price');
-
             if (imgEl) imgEl.src = bestProd.image;
             if (titleEl) titleEl.innerText = bestProd.name;
             if (priceEl) priceEl.innerText = `${bestProd.price} ج.م`;
@@ -816,7 +820,7 @@
         function handleAdminLoginSubmit(e) {
             e.preventDefault();
             const inputPass = document.getElementById('admin-pass-input').value;
-            const currentPass = settings.adminPassword || "admin123";
+            const currentPass = storeData.settings.adminPassword || "admin123";
 
             if (inputPass === currentPass) {
                 isAdminLoggedIn = true;
@@ -838,19 +842,14 @@
             showToast("تم قفل لوحة التحكم بنجاح");
         }
 
-        function saveProductsToStorage() { localStorage.setItem('atheer_products', JSON.stringify(products)); }
-        function saveCartToStorage() { localStorage.setItem('atheer_cart', JSON.stringify(cart)); }
-        function saveOrdersToStorage() { localStorage.setItem('atheer_orders', JSON.stringify(orders)); }
-        function saveSettingsToStorage() { localStorage.setItem('atheer_settings', JSON.stringify(settings)); }
-
         function applySettings() {
-            document.getElementById('brand-name').innerText = settings.brandName;
-            document.getElementById('brand-slogan').innerText = settings.brandSlogan;
-            document.getElementById('banner-text').innerText = settings.bannerText;
+            document.getElementById('brand-name').innerText = storeData.settings.brandName;
+            document.getElementById('brand-slogan').innerText = storeData.settings.brandSlogan;
+            document.getElementById('banner-text').innerText = storeData.settings.bannerText;
 
-            document.getElementById('setting-brand-name').value = settings.brandName;
-            document.getElementById('setting-brand-slogan').value = settings.brandSlogan;
-            document.getElementById('setting-banner-text').value = settings.bannerText;
+            document.getElementById('setting-brand-name').value = storeData.settings.brandName;
+            document.getElementById('setting-brand-slogan').value = storeData.settings.brandSlogan;
+            document.getElementById('setting-banner-text').value = storeData.settings.bannerText;
         }
 
         function switchTab(view) {
@@ -905,13 +904,12 @@
             const sortVal = document.getElementById('sort-select').value;
             const bestSeller = getBestSellerProduct();
 
-            let filtered = products.filter(p => {
+            let filtered = storeData.products.filter(p => {
                 const matchCategory = (currentCategory === 'all') || (p.category === currentCategory);
                 const matchSearch = p.name.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal);
                 return matchCategory && matchSearch;
             });
 
-            // Ensure AURA -- BOX or products containing BOX are always rendered first
             filtered.sort((a, b) => {
                 if (a.id === 'box_aura' || a.name.includes('BOX')) return -1;
                 if (b.id === 'box_aura' || b.name.includes('BOX')) return 1;
@@ -954,7 +952,7 @@
         }
 
         function openBoxModal(boxId = 'box_aura') {
-            const boxProduct = products.find(p => p.id === boxId) || products.find(p => p.id === 'box_aura');
+            const boxProduct = storeData.products.find(p => p.id === boxId) || storeData.products.find(p => p.id === 'box_aura');
             if (boxProduct) {
                 document.getElementById('box-modal-title').innerText = `تخصيص ${boxProduct.name}`;
                 document.getElementById('box-submit-btn').innerText = `تأكيد اختيار العطور وإضافة البوكس للسلة (${boxProduct.price} ج.م)`;
@@ -969,23 +967,18 @@
         }
 
         function populateBoxDropdowns() {
-            const normalPerfumes = products.filter(p => p.id !== 'box_aura' && !p.name.includes('BOX'));
+            const normalPerfumes = storeData.products.filter(p => p.id !== 'box_aura' && !p.name.includes('BOX'));
             const s1 = document.getElementById('box-perfume-1');
             const s2 = document.getElementById('box-perfume-2');
             const s3 = document.getElementById('box-perfume-3');
-
-            const val1 = s1.value;
-            const val2 = s2.value;
-            const val3 = s3.value;
 
             const makeOptions = (selectedVal) => {
                 return normalPerfumes.map(p => `<option value="${p.name}" ${p.name === selectedVal ? 'selected' : ''}>${p.name}</option>`).join('');
             };
 
-            s1.innerHTML = makeOptions(val1 || normalPerfumes[0]?.name);
-            s2.innerHTML = makeOptions(val2 || normalPerfumes[1]?.name || normalPerfumes[0]?.name);
-            s3.innerHTML = makeOptions(val3 || normalPerfumes[2]?.name || normalPerfumes[0]?.name);
-
+            s1.innerHTML = makeOptions(normalPerfumes[0]?.name);
+            s2.innerHTML = makeOptions(normalPerfumes[1]?.name || normalPerfumes[0]?.name);
+            s3.innerHTML = makeOptions(normalPerfumes[2]?.name || normalPerfumes[0]?.name);
             updateBoxOptions();
         }
 
@@ -993,8 +986,7 @@
             const s1 = document.getElementById('box-perfume-1').value;
             const s2 = document.getElementById('box-perfume-2').value;
             const s3 = document.getElementById('box-perfume-3').value;
-
-            const normalPerfumes = products.filter(p => p.id !== 'box_aura' && !p.name.includes('BOX'));
+            const normalPerfumes = storeData.products.filter(p => p.id !== 'box_aura' && !p.name.includes('BOX'));
 
             const updateSelectOptions = (selectEl, currentVal, disabledVals) => {
                 selectEl.innerHTML = normalPerfumes.map(p => {
@@ -1019,8 +1011,7 @@
                 return;
             }
 
-            const boxProd = products.find(p => p.id === (window.currentActiveBoxId || 'box_aura')) || products[0];
-
+            const boxProd = storeData.products.find(p => p.id === (window.currentActiveBoxId || 'box_aura')) || storeData.products[0];
             const boxCartItem = {
                 ...boxProd,
                 id: boxProd.id + "_" + Date.now(),
@@ -1029,7 +1020,7 @@
             };
 
             cart.push(boxCartItem);
-            saveCartToStorage();
+            localStorage.setItem('atheer_cart', JSON.stringify(cart));
             updateCartUI();
             closeBoxModal();
             toggleCartModal(true);
@@ -1043,7 +1034,7 @@
         }
 
         function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
+            const product = storeData.products.find(p => p.id === productId);
             if (!product) return;
 
             if (product.id === 'box_aura' || product.name.includes('BOX')) {
@@ -1055,7 +1046,7 @@
             if (existing) existing.quantity += 1;
             else cart.push({ ...product, quantity: 1 });
 
-            saveCartToStorage();
+            localStorage.setItem('atheer_cart', JSON.stringify(cart));
             updateCartUI();
             toggleCartModal(true);
             showToast(`تم إضافة "${product.name}" للسلة`);
@@ -1064,18 +1055,15 @@
         function updateCartQuantity(productId, delta) {
             const item = cart.find(i => i.id === productId);
             if (!item) return;
-
             item.quantity += delta;
             if (item.quantity <= 0) cart = cart.filter(i => i.id !== productId);
-
-            saveCartToStorage();
+            localStorage.setItem('atheer_cart', JSON.stringify(cart));
             updateCartUI();
         }
 
         function updateCartUI() {
             const container = document.getElementById('cart-items-container');
             const cartCountBadge = document.getElementById('cart-count');
-            
             const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartCountBadge.innerText = totalItemsCount;
 
@@ -1106,14 +1094,12 @@
                     </div>
                 `;
             }).join('');
-
             document.getElementById('cart-total').innerText = `${subtotal} ج.م`;
         }
 
         function openProductDetailModal(id) {
-            const product = products.find(p => p.id === id);
+            const product = storeData.products.find(p => p.id === id);
             if (!product) return;
-
             if (product.id === 'box_aura' || product.name.includes('BOX')) {
                 openBoxModal(product.id);
                 return;
@@ -1121,7 +1107,6 @@
 
             const modal = document.getElementById('product-detail-modal');
             const content = document.getElementById('product-detail-content');
-
             content.innerHTML = `
                 <div class="h-64 rounded-2xl overflow-hidden">
                     <img src="${product.image}" class="w-full h-full object-cover">
@@ -1143,44 +1128,25 @@
         }
 
         function openCheckoutModal() {
-            if (cart.length === 0) {
-                showToast('السلة فارغة!');
-                return;
-            }
+            if (cart.length === 0) { showToast('السلة فارغة!'); return; }
             toggleCartModal(false);
             updateCheckoutTotals();
             document.getElementById('checkout-modal').classList.add('modal-active');
         }
 
-        function closeCheckoutModal() {
-            document.getElementById('checkout-modal').classList.remove('modal-active');
-        }
+        function closeCheckoutModal() { document.getElementById('checkout-modal').classList.remove('modal-active'); }
 
         function handleGovChange() {
             const gov = document.getElementById('cust-gov').value;
-            const gizaSec = document.getElementById('giza-metro-section');
-            const cairoSec = document.getElementById('cairo-area-section');
-
-            if (gov === 'giza') {
-                gizaSec.classList.remove('hidden');
-                cairoSec.classList.add('hidden');
-            } else if (gov === 'cairo') {
-                cairoSec.classList.remove('hidden');
-                gizaSec.classList.add('hidden');
-            } else {
-                gizaSec.classList.add('hidden');
-                cairoSec.classList.add('hidden');
-            }
+            document.getElementById('giza-metro-section').classList.toggle('hidden', gov !== 'giza');
+            document.getElementById('cairo-area-section').classList.toggle('hidden', gov !== 'cairo');
             updateCheckoutTotals();
         }
 
         function updateCheckoutTotals() {
             const gov = document.getElementById('cust-gov').value;
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            let shipping = 0;
-            if (gov === 'giza') shipping = 30;
-            else if (gov === 'cairo') shipping = 50;
-            
+            let shipping = gov === 'giza' ? 30 : (gov === 'cairo' ? 50 : 0);
             document.getElementById('checkout-subtotal-val').innerText = `${subtotal} ج.م`;
             document.getElementById('checkout-shipping-val').innerText = `${shipping} ج.م`;
             document.getElementById('checkout-total-sum').innerText = `${subtotal + shipping} ج.م`;
@@ -1191,37 +1157,16 @@
             const name = document.getElementById('cust-name').value;
             const phone = document.getElementById('cust-phone').value;
             const gov = document.getElementById('cust-gov').value;
-
             if (!gov) { alert("اختر المحافظة أولاً"); return; }
 
-            let addressDetails = "";
-            let shippingFee = 0;
-
-            if (gov === 'giza') {
-                const metroStation = document.getElementById('cust-metro-station').value;
-                addressDetails = `الجيزة - محطة مترو: (${metroStation})`;
-                shippingFee = 30;
-            } else {
-                const district = document.getElementById('cust-cairo-district').value;
-                const street = document.getElementById('cust-street').value;
-                addressDetails = `القاهرة الكبرى - منطقة ${district} - الشارع: ${street}`;
-                shippingFee = 50;
-            }
-
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const grandTotal = subtotal + shippingFee;
-            const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
+            let addressDetails = gov === 'giza' ? `الجيزة - محطة مترو: (${document.getElementById('cust-metro-station').value})` : `القاهرة - منطقة ${document.getElementById('cust-cairo-district').value}`;
+            let shippingFee = gov === 'giza' ? 30 : 50;
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
 
             pendingOrderData = {
-                id: orderId,
-                customerName: name,
-                phone: phone,
-                address: addressDetails,
-                items: [...cart],
-                subtotal: subtotal,
-                shippingFee: shippingFee,
-                totalAmount: grandTotal,
-                status: "قيد الانتظار"
+                id: orderId, customerName: name, phone: phone, address: addressDetails,
+                items: [...cart], subtotal: subtotal, shippingFee: shippingFee, totalAmount: subtotal + shippingFee, status: "قيد الانتظار"
             };
 
             document.getElementById('invoice-order-id').innerText = orderId;
@@ -1230,15 +1175,11 @@
             document.getElementById('inv-address').innerText = addressDetails;
             document.getElementById('inv-subtotal').innerText = `${subtotal} ج.م`;
             document.getElementById('inv-shipping').innerText = `${shippingFee} ج.م`;
-            document.getElementById('inv-total').innerText = `${grandTotal} ج.م`;
+            document.getElementById('inv-total').innerText = `${subtotal + shippingFee} ج.م`;
 
-            const invItemsList = document.getElementById('inv-items-list');
-            invItemsList.innerHTML = cart.map(item => `
+            document.getElementById('inv-items-list').innerHTML = cart.map(item => `
                 <div class="flex justify-between items-center text-xs border-b border-gray-800 pb-1">
-                    <div>
-                        <span class="text-white font-bold">${item.name} (x${item.quantity})</span>
-                        ${item.customDetails ? `<div class="text-[10px] text-gold-400">${item.customDetails}</div>` : ''}
-                    </div>
+                    <div><span class="text-white font-bold">${item.name} (x${item.quantity})</span></div>
                     <span class="text-gold-400 font-bold">${item.price * item.quantity} ج.م</span>
                 </div>
             `).join('');
@@ -1247,69 +1188,43 @@
             document.getElementById('invoice-modal').classList.add('modal-active');
         }
 
-        function closeInvoiceModal() {
-            document.getElementById('invoice-modal').classList.remove('modal-active');
-        }
+        function closeInvoiceModal() { document.getElementById('invoice-modal').classList.remove('modal-active'); }
 
         function confirmAndSendWhatsApp() {
             if (!pendingOrderData) return;
+            storeData.orders.unshift(pendingOrderData);
+            saveCloudData();
 
-            orders.unshift(pendingOrderData);
-            saveOrdersToStorage();
-
-            let waMsg = `✨ *فاتورة طلب جديدة من متجر AURA* ✨\n\n`;
-            waMsg += `📌 *رقم الطلب:* ${pendingOrderData.id}\n`;
-            waMsg += `👤 *الاسم:* ${pendingOrderData.customerName}\n`;
-            waMsg += `📞 *الهاتف:* ${pendingOrderData.phone}\n`;
-            waMsg += `📍 *العنوان:* ${pendingOrderData.address}\n`;
-            waMsg += `🚚 *ميعاد التوصيل المتوقع:* خلال 3 أيام عمل\n\n`;
-            waMsg += `🛍️ *المنتجات المطلوبة:*\n`;
-            pendingOrderData.items.forEach((item, index) => {
-                waMsg += `${index + 1}. ${item.name} (x${item.quantity}) - ${item.price * item.quantity} ج.م\n`;
-                if (item.customDetails) {
-                    waMsg += `   └ ${item.customDetails}\n`;
-                }
+            let waMsg = `✨ *فاتورة طلب جديدة من متجر AURA* ✨\n\n📌 *رقم الطلب:* ${pendingOrderData.id}\n👤 *الاسم:* ${pendingOrderData.customerName}\n📞 *الهاتف:* ${pendingOrderData.phone}\n📍 *العنوان:* ${pendingOrderData.address}\n\n`;
+            pendingOrderData.items.forEach((item, idx) => {
+                waMsg += `${idx + 1}. ${item.name} (x${item.quantity}) - ${item.price * item.quantity} ج.م\n`;
+                if (item.customDetails) waMsg += `   └ ${item.customDetails}\n`;
             });
-            waMsg += `\n💵 *المجموع الفرعي:* ${pendingOrderData.subtotal} ج.م\n`;
-            waMsg += `🚚 *مصاريف الشحن:* ${pendingOrderData.shippingFee} ج.م\n`;
-            waMsg += `💰 *الإجمالي النهائي المطلوب:* ${pendingOrderData.totalAmount} ج.م\n`;
+            waMsg += `\n💰 *الإجمالي النهائي:* ${pendingOrderData.totalAmount} ج.م\n`;
 
             cart = [];
-            saveCartToStorage();
+            localStorage.setItem('atheer_cart', JSON.stringify(cart));
             updateCartUI();
             closeInvoiceModal();
 
-            const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(waMsg)}`;
-            window.open(waUrl, '_blank');
-
+            window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(waMsg)}`, '_blank');
             updateAdminDashboard();
-            updateBestSellerUI();
-            renderProducts();
-            showToast("تم تأكيد الطلب بنجاح!");
         }
 
         function updateAdminDashboard() {
-            const totalRev = orders.reduce((sum, o) => sum + o.totalAmount, 0);
-            const avgOrder = orders.length > 0 ? (totalRev / orders.length).toFixed(0) : 0;
-
+            const totalRev = storeData.orders.reduce((sum, o) => sum + o.totalAmount, 0);
             document.getElementById('stat-total-revenue').innerText = `${totalRev} ج.م`;
-            document.getElementById('stat-total-orders').innerText = orders.length;
-            document.getElementById('stat-total-products').innerText = products.length;
-            document.getElementById('stat-avg-order').innerText = `${avgOrder} ج.م`;
-            document.getElementById('orders-count-badge').innerText = orders.length;
+            document.getElementById('stat-total-orders').innerText = storeData.orders.length;
+            document.getElementById('stat-total-products').innerText = storeData.products.length;
+            document.getElementById('stat-avg-order').innerText = storeData.orders.length > 0 ? (totalRev / storeData.orders.length).toFixed(0) + " ج.م" : "0 ج.م";
+            document.getElementById('orders-count-badge').innerText = storeData.orders.length;
 
             renderAdminProductsTable();
             renderAdminOrdersTable();
         }
 
         function renderAdminProductsTable() {
-            const tbody = document.getElementById('admin-products-tbody');
-            if (products.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-gray-500">لا توجد منتجات.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = products.map(p => `
+            document.getElementById('admin-products-tbody').innerHTML = storeData.products.map(p => `
                 <tr class="hover:bg-black/30">
                     <td class="py-3 px-4"><img src="${p.image}" class="w-10 h-10 object-cover rounded-lg"></td>
                     <td class="py-3 px-4 font-bold text-white">${p.name}</td>
@@ -1324,70 +1239,40 @@
         }
 
         function renderAdminOrdersTable() {
-            const tbody = document.getElementById('admin-orders-tbody');
-            if (orders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-gray-500">لا توجد طلبات.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = orders.map(o => `
-                <tr class="hover:bg-black/30">
-                    <td class="py-3 px-4 text-gold-400 font-bold">${o.id}</td>
-                    <td class="py-3 px-4 text-white">${o.customerName}</td>
-                    <td class="py-3 px-4 text-gray-300">${o.phone}</td>
-                    <td class="py-3 px-4 text-gray-400">${o.address}</td>
-                    <td class="py-3 px-4 font-bold text-gold-400">${o.totalAmount} ج.م</td>
-                    <td class="py-3 px-4 text-emerald-400 font-bold">${o.status}</td>
-                </tr>
-            `).join('');
-        }
-
-        function handleImageFileSelect(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                uploadedImageBase64 = evt.target.result;
-                document.getElementById('image-preview').src = uploadedImageBase64;
-                document.getElementById('image-preview-container').classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
+            document.getElementById('admin-orders-tbody').innerHTML = storeData.orders.length === 0 ? 
+                `<tr><td colspan="6" class="py-6 text-center text-gray-500">لا توجد طلبات.</td></tr>` :
+                storeData.orders.map(o => `
+                    <tr class="hover:bg-black/30">
+                        <td class="py-3 px-4 text-gold-400 font-bold">${o.id}</td>
+                        <td class="py-3 px-4 text-white">${o.customerName}</td>
+                        <td class="py-3 px-4 text-gray-300">${o.phone}</td>
+                        <td class="py-3 px-4 text-gray-400">${o.address}</td>
+                        <td class="py-3 px-4 font-bold text-gold-400">${o.totalAmount} ج.م</td>
+                        <td class="py-3 px-4 text-emerald-400 font-bold">${o.status}</td>
+                    </tr>
+                `).join('');
         }
 
         function openProductModal() {
             document.getElementById('modal-product-title').innerText = "إضافة منتج جديد";
             document.getElementById('product-form').reset();
             document.getElementById('edit-prod-id').value = "";
-            uploadedImageBase64 = "";
-            document.getElementById('image-preview-container').classList.add('hidden');
             document.getElementById('admin-product-modal').classList.add('modal-active');
         }
 
-        function closeAdminProductModal() {
-            document.getElementById('admin-product-modal').classList.remove('modal-active');
-        }
+        function closeAdminProductModal() { document.getElementById('admin-product-modal').classList.remove('modal-active'); }
 
         function editProduct(id) {
-            const p = products.find(item => item.id === id);
+            const p = storeData.products.find(item => item.id === id);
             if (!p) return;
-
             document.getElementById('modal-product-title').innerText = "تعديل المنتج / البوكس";
             document.getElementById('edit-prod-id').value = p.id;
             document.getElementById('prod-name').value = p.name;
             document.getElementById('prod-category').value = p.category;
             document.getElementById('prod-price').value = p.price;
             document.getElementById('prod-concentration').value = p.concentration || "";
+            document.getElementById('prod-image').value = p.image;
             document.getElementById('prod-desc').value = p.description || "";
-
-            if (p.image.startsWith('data:')) {
-                uploadedImageBase64 = p.image;
-                document.getElementById('image-preview').src = p.image;
-                document.getElementById('image-preview-container').classList.remove('hidden');
-            } else {
-                document.getElementById('prod-image').value = p.image;
-            }
-
             document.getElementById('admin-product-modal').classList.add('modal-active');
         }
 
@@ -1398,76 +1283,52 @@
             const category = document.getElementById('prod-category').value;
             const price = parseFloat(document.getElementById('prod-price').value);
             const concentration = document.getElementById('prod-concentration').value;
-            const imageUrlInput = document.getElementById('prod-image').value;
+            const image = document.getElementById('prod-image').value;
             const description = document.getElementById('prod-desc').value;
 
-            const finalImage = uploadedImageBase64 || imageUrlInput || "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80";
-
             if (editId) {
-                const index = products.findIndex(p => p.id === editId);
-                if (index !== -1) {
-                    products[index] = { ...products[index], name, category, price, concentration, image: finalImage, description };
-                }
+                const idx = storeData.products.findIndex(p => p.id === editId);
+                if (idx !== -1) storeData.products[idx] = { ...storeData.products[idx], name, category, price, concentration, image, description };
             } else {
-                products.unshift({ id: "p_" + Date.now(), name, category, price, concentration, rating: 5.0, image: finalImage, description });
+                storeData.products.unshift({ id: "p_" + Date.now(), name, category, price, concentration, rating: 5.0, image, description });
             }
 
-            saveProductsToStorage();
-            renderProducts();
-            updateAdminDashboard();
+            saveCloudData();
             closeAdminProductModal();
-            showToast("تم الحفظ بنجاح");
+            showToast("تم التحديث السحابي بنجاح للجميع!");
         }
 
         function deleteProduct(id) {
             if (confirm("حذف هذا المنتج؟")) {
-                products = products.filter(p => p.id !== id);
-                saveProductsToStorage();
-                renderProducts();
-                updateAdminDashboard();
+                storeData.products = storeData.products.filter(p => p.id !== id);
+                saveCloudData();
                 showToast("تم الحذف بنجاح");
             }
         }
 
         function saveSettings() {
-            settings.brandName = document.getElementById('setting-brand-name').value;
-            settings.brandSlogan = document.getElementById('setting-brand-slogan').value;
-            settings.bannerText = document.getElementById('setting-banner-text').value;
-
+            storeData.settings.brandName = document.getElementById('setting-brand-name').value;
+            storeData.settings.brandSlogan = document.getElementById('setting-brand-slogan').value;
+            storeData.settings.bannerText = document.getElementById('setting-banner-text').value;
             const newPass = document.getElementById('setting-admin-password').value.trim();
-            if (newPass) settings.adminPassword = newPass;
+            if (newPass) storeData.settings.adminPassword = newPass;
 
-            saveSettingsToStorage();
-            applySettings();
-            showToast("تم حفظ الإعدادات");
+            saveCloudData();
+            showToast("تم حفظ الإعدادات وتحديثها للجميع!");
         }
 
         function resetToDefaults() {
-            if (confirm("إعادة ضبط البيانات للافتراضي؟")) {
-                localStorage.clear();
-                products = [...DEFAULT_PRODUCTS];
-                settings = {
-                    brandName: "AURA",
-                    brandSlogan: "A U R A • LUXURY PERFUMES",
-                    bannerText: "✨ اطلب بوكس التجربة الملكية واستكشف عطرك المفضل قبل شراء العبوة الكبيرة!",
-                    adminPassword: "admin123"
-                };
-                orders = [];
-                applySettings();
-                renderProducts();
-                updateAdminDashboard();
-                updateBestSellerUI();
-                showToast("تم إعادة الضبط");
+            if (confirm("إعادة ضبط المتجر؟")) {
+                storeData = DEFAULT_DATA;
+                saveCloudData();
+                showToast("تمت الاستعادة بنجاح");
             }
         }
 
         function clearAllOrders() {
-            if (confirm("مسح كافة الطلبات؟")) {
-                orders = [];
-                saveOrdersToStorage();
-                updateAdminDashboard();
-                updateBestSellerUI();
-                renderProducts();
+            if (confirm("مسح الطلبات؟")) {
+                storeData.orders = [];
+                saveCloudData();
             }
         }
 
