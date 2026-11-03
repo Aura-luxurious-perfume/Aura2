@@ -433,7 +433,6 @@
             <button onclick="closeCheckoutModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
             <h3 class="text-xl font-bold text-gold-400 font-serif mb-2">إتمام الطلب</h3>
             
-            <!-- Delivery Notice Banner -->
             <div class="bg-gold-500/10 border border-gold-500/30 rounded-xl p-3 mb-4 flex items-center gap-3 text-gold-300 text-xs">
                 <i class="fas fa-truck-fast text-lg text-gold-400"></i>
                 <span>ملاحظة: <strong>التوصيل خلال 3 أيام عمل</strong> كحد أقصى لجميع المحافظات.</span>
@@ -454,8 +453,8 @@
                     <label class="block text-xs text-gray-300 mb-1">المحافظة</label>
                     <select id="cust-gov" onchange="handleGovChange()" required class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                         <option value="">-- اختر المحافظة --</option>
-                        <option value="giza">الجيزة (توصيل لأقرب محطة مترو - 30 ج.م)</option>
-                        <option value="cairo">القاهرة الكبرى</option>
+                        <option value="giza">الجيزة (توصيل لأقرب محطة مترو - الشحن 30 ج.م)</option>
+                        <option value="cairo">القاهرة الكبرى (توصيل للمنزل - شحن مجاني)</option>
                     </select>
                 </div>
 
@@ -505,7 +504,7 @@
                             <option value="جاردن سيتي">جاردن سيتي</option>
                             <option value="عين شمس">عين شمس</option>
                             <option value="المطرية">المطرية</option>
-                            <option value="المحلة / حلوان">حلوان</option>
+                            <option value="حلوان">حلوان</option>
                             <option value="المعصرة">المعصرة</option>
                             <option value="المرج">المرج</option>
                             <option value="السلام">السلام</option>
@@ -540,9 +539,65 @@
                 </div>
 
                 <button type="submit" class="w-full py-3.5 bg-emerald-600 text-white font-extrabold rounded-xl text-sm mt-4 flex items-center justify-center gap-2">
-                    <i class="fab fa-whatsapp text-lg"></i> إرسال الطلب عبر الواتساب
+                    <i class="fab fa-whatsapp text-lg"></i> مراجعة الفاتورة وإرسال الطلب
                 </button>
             </form>
+        </div>
+    </div>
+
+    <!-- INVOICE PREVIEW MODAL -->
+    <div id="invoice-modal" class="fixed inset-0 z-50 bg-black/85 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 border border-gold-500/50 relative text-right">
+            <button onclick="closeInvoiceModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+
+            <div class="text-center mb-6 border-b border-gold-500/30 pb-4">
+                <i class="fas fa-receipt text-gold-400 text-3xl mb-2"></i>
+                <h3 class="text-xl font-black text-gold-400 font-serif">فاتورة الطلب المؤكدة</h3>
+                <p class="text-xs text-gray-400 mt-1" id="invoice-order-id">ORD-XXXXXX</p>
+            </div>
+
+            <div class="space-y-3 text-xs text-gray-300 mb-6">
+                <div class="flex justify-between border-b border-gray-800 pb-2">
+                    <span class="text-gray-400">اسم العميل:</span>
+                    <span id="inv-name" class="font-bold text-white">---</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-800 pb-2">
+                    <span class="text-gray-400">رقم الهاتف:</span>
+                    <span id="inv-phone" class="font-bold text-white">---</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-800 pb-2">
+                    <span class="text-gray-400">عنوان التوصيل:</span>
+                    <span id="inv-address" class="font-bold text-gold-300 text-left">---</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-800 pb-2">
+                    <span class="text-gray-400">موعد التسليم المتوقع:</span>
+                    <span class="font-bold text-emerald-400">خلال 3 أيام عمل</span>
+                </div>
+
+                <div class="pt-2">
+                    <p class="font-bold text-gold-400 mb-2">المنتجات المطلوبة:</p>
+                    <div id="inv-items-list" class="space-y-1.5 max-h-36 overflow-y-auto bg-black/40 p-2.5 rounded-xl border border-gold-500/20"></div>
+                </div>
+
+                <div class="border-t border-gold-500/30 pt-3 space-y-1">
+                    <div class="flex justify-between text-gray-400">
+                        <span>المجموع الفرعي:</span>
+                        <span id="inv-subtotal">0 ج.م</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400">
+                        <span>مصاريف الشحن:</span>
+                        <span id="inv-shipping">0 ج.م</span>
+                    </div>
+                    <div class="flex justify-between text-base font-black text-gold-400 pt-2 border-t border-gray-800">
+                        <span>الإجمالي النهائي:</span>
+                        <span id="inv-total">0 ج.م</span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="confirmAndSendWhatsApp()" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg">
+                <i class="fab fa-whatsapp text-lg"></i> تأكيد وإرسال الفاتورة عبر الواتساب
+            </button>
         </div>
     </div>
 
@@ -669,13 +724,14 @@
         let settings = JSON.parse(localStorage.getItem('atheer_settings')) || {
             brandName: "AURA",
             brandSlogan: "A U R A • LUXURY PERFUMES",
-            bannerText: "✨ شحن مجاني لجميع الطلبات الفاخرة عند الشراء بأكثر من 1500 ج.م",
+            bannerText: "✨ شحن مجاني لجميع الطلبات الفاخرة بمناسبة الافتتاح عند الشراء بأكثر من 1500 ج.م",
             adminPassword: "admin123"
         };
 
         let isAdminLoggedIn = JSON.parse(sessionStorage.getItem('atheer_admin_auth')) || false;
         let currentCategory = 'all';
         let uploadedImageBase64 = "";
+        let pendingOrderData = null;
 
         window.onload = function() {
             applySettings();
@@ -1129,7 +1185,7 @@
             const grandTotal = subtotal + shippingFee;
             const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
 
-            const newOrder = {
+            pendingOrderData = {
                 id: orderId,
                 customerName: name,
                 phone: phone,
@@ -1141,30 +1197,61 @@
                 status: "قيد الانتظار"
             };
 
-            orders.unshift(newOrder);
+            // Display Invoice Modal
+            document.getElementById('invoice-order-id').innerText = orderId;
+            document.getElementById('inv-name').innerText = name;
+            document.getElementById('inv-phone').innerText = phone;
+            document.getElementById('inv-address').innerText = addressDetails;
+            document.getElementById('inv-subtotal').innerText = `${subtotal} ج.م`;
+            document.getElementById('inv-shipping').innerText = `${shippingFee} ج.م`;
+            document.getElementById('inv-total').innerText = `${grandTotal} ج.م`;
+
+            const invItemsList = document.getElementById('inv-items-list');
+            invItemsList.innerHTML = cart.map(item => `
+                <div class="flex justify-between items-center text-xs border-b border-gray-800 pb-1">
+                    <div>
+                        <span class="text-white font-bold">${item.name} (x${item.quantity})</span>
+                        ${item.customDetails ? `<div class="text-[10px] text-gold-400">${item.customDetails}</div>` : ''}
+                    </div>
+                    <span class="text-gold-400 font-bold">${item.price * item.quantity} ج.م</span>
+                </div>
+            `).join('');
+
+            closeCheckoutModal();
+            document.getElementById('invoice-modal').classList.add('modal-active');
+        }
+
+        function closeInvoiceModal() {
+            document.getElementById('invoice-modal').classList.remove('modal-active');
+        }
+
+        function confirmAndSendWhatsApp() {
+            if (!pendingOrderData) return;
+
+            orders.unshift(pendingOrderData);
             saveOrdersToStorage();
 
-            let waMsg = `✨ *طلب جديد من متجر AURA* ✨\n\n`;
-            waMsg += `📌 *رقم الطلب:* ${orderId}\n`;
-            waMsg += `👤 *الاسم:* ${name}\n`;
-            waMsg += `📞 *الهاتف:* ${phone}\n`;
-            waMsg += `📍 *العنوان:* ${addressDetails}\n`;
+            let waMsg = `✨ *فاتورة طلب جديدة من متجر AURA* ✨\n\n`;
+            waMsg += `📌 *رقم الطلب:* ${pendingOrderData.id}\n`;
+            waMsg += `👤 *الاسم:* ${pendingOrderData.customerName}\n`;
+            waMsg += `📞 *الهاتف:* ${pendingOrderData.phone}\n`;
+            waMsg += `📍 *العنوان:* ${pendingOrderData.address}\n`;
             waMsg += `🚚 *ميعاد التوصيل المتوقع:* خلال 3 أيام عمل\n\n`;
-            waMsg += `🛍️ *المنتجات:*\n`;
-            cart.forEach((item, index) => {
+            waMsg += `🛍️ *المنتجات المطلوبة:*\n`;
+            pendingOrderData.items.forEach((item, index) => {
                 waMsg += `${index + 1}. ${item.name} (x${item.quantity}) - ${item.price * item.quantity} ج.م\n`;
                 if (item.customDetails) {
                     waMsg += `   └ ${item.customDetails}\n`;
                 }
             });
-            waMsg += `\n💵 *المجموع الفرعي:* ${subtotal} ج.م\n`;
-            waMsg += `🚚 *مصاريف الشحن:* ${shippingFee} ج.م\n`;
-            waMsg += `💰 *الإجمالي النهائي المطلوب:* ${grandTotal} ج.م\n`;
+            waMsg += `\n💵 *المجموع الفرعي:* ${pendingOrderData.subtotal} ج.م\n`;
+            waMsg += `🚚 *مصاريف الشحن:* ${pendingOrderData.shippingFee} ج.م\n`;
+            waMsg += `💰 *الإجمالي النهائي المطلوب:* ${pendingOrderData.totalAmount} ج.م\n`;
 
             cart = [];
             saveCartToStorage();
             updateCartUI();
-            closeCheckoutModal();
+            closeInvoiceModal();
 
             const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(waMsg)}`;
             window.open(waUrl, '_blank');
@@ -1172,6 +1259,7 @@
             updateAdminDashboard();
             updateBestSellerUI();
             renderProducts();
+            showToast("تم تأكيد الطلب بنجاح!");
         }
 
         function updateAdminDashboard() {
