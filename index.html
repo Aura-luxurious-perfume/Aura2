@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA | العطور الفاخرة والنيش</title>
+    <title>AURA | العطور الفاخرة</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -95,7 +95,7 @@
 
     <!-- TOP ANNOUNCEMENT BAR -->
     <div id="announcement-bar" class="bg-gradient-to-r from-gold-700 via-gold-500 to-gold-700 text-black font-bold text-xs md:text-sm py-2 text-center transition-all duration-300 flex justify-between items-center px-4">
-        <span class="w-full text-center" id="banner-text">✨ شحن مجاني لجميع الطلبات الفاخرة بمناسبة الافتتاح عند الشراء بأكثر من 1500 ج.م</span>
+        <span class="w-full text-center" id="banner-text">✨ اطلب بوكس التجربة الملكية واستكشف عطرك المفضل قبل شراء العبوة الكبيرة!</span>
         <button onclick="closeAnnouncement()" class="text-black hover:text-white text-sm focus:outline-none"><i class="fas fa-times"></i></button>
     </div>
 
@@ -150,7 +150,7 @@
                     <div class="space-y-6 text-center lg:text-right">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold-500/30 bg-gold-500/10 text-gold-400 text-xs tracking-wider">
                             <i class="fas fa-sparkles"></i>
-                            <span>تشكيلة النيش الفاخرة لعام 2026</span>
+                            <span>تشكيلة العطور الفاخرة لعام 2026</span>
                         </div>
                         <h2 class="text-4xl sm:text-6xl font-black leading-tight font-serif gold-gradient-text">
                             عطور تُصنع <br/> لتُخلّد ذكرياتك الملكية
@@ -189,23 +189,36 @@
                     <h3 class="text-2xl sm:text-3xl font-black text-gold-400 font-serif mb-2">المجموعات العطرية</h3>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-                    <button onclick="filterCategory('all', event)" class="cat-btn border border-gold-500 bg-gold-500/10 p-5 rounded-xl transition-all text-right flex flex-col justify-between h-36">
-                        <div class="w-10 h-10 rounded-lg bg-gold-500 text-black flex items-center justify-center text-lg"><i class="fas fa-border-all"></i></div>
-                        <div><h4 class="font-bold text-gray-100 text-sm sm:text-base">جميع العطور</h4></div>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <!-- Top Full Width Button: All Products -->
+                    <button onclick="filterCategory('all', event)" class="cat-btn w-full border border-gold-500 bg-gold-500/10 p-5 rounded-xl transition-all text-right flex items-center justify-between shadow-lg">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-gold-500 text-black flex items-center justify-center text-xl font-bold"><i class="fas fa-border-all"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-100 text-base sm:text-lg">جميع العطور</h4>
+                                <p class="text-xs text-gray-400">تصفح كافة التشكيلات والبوكسات الملكية</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-left text-gold-400"></i>
                     </button>
-                    <button onclick="filterCategory('men', event)" class="cat-btn border border-gold-500/30 bg-cardBg p-5 rounded-xl hover:border-gold-500 transition-all text-right flex flex-col justify-between h-36">
-                        <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-400 flex items-center justify-center text-lg"><i class="fas fa-mars"></i></div>
-                        <div><h4 class="font-bold text-gray-100 text-sm sm:text-base">عطور رجالية</h4></div>
-                    </button>
-                    <button onclick="filterCategory('women', event)" class="cat-btn border border-gold-500/30 bg-cardBg p-5 rounded-xl hover:border-gold-500 transition-all text-right flex flex-col justify-between h-36">
-                        <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-400 flex items-center justify-center text-lg"><i class="fas fa-venus"></i></div>
-                        <div><h4 class="font-bold text-gray-100 text-sm sm:text-base">عطور نسائية</h4></div>
-                    </button>
-                    <button onclick="filterCategory('niche', event)" class="cat-btn border border-gold-500/30 bg-cardBg p-5 rounded-xl hover:border-gold-500 transition-all text-right flex flex-col justify-between h-36">
-                        <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-400 flex items-center justify-center text-lg"><i class="fas fa-gem"></i></div>
-                        <div><h4 class="font-bold text-gray-100 text-sm sm:text-base">مجموعة النيش</h4></div>
-                    </button>
+
+                    <!-- Two Side-by-Side Buttons: Men & Women -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button onclick="filterCategory('men', event)" class="cat-btn border border-gold-500/30 bg-cardBg p-5 rounded-xl hover:border-gold-500 transition-all text-right flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-400 flex items-center justify-center text-lg"><i class="fas fa-mars"></i></div>
+                                <div><h4 class="font-bold text-gray-100 text-sm sm:text-base">عطور رجالية</h4></div>
+                            </div>
+                            <i class="fas fa-chevron-left text-xs text-gray-500"></i>
+                        </button>
+                        <button onclick="filterCategory('women', event)" class="cat-btn border border-gold-500/30 bg-cardBg p-5 rounded-xl hover:border-gold-500 transition-all text-right flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-400 flex items-center justify-center text-lg"><i class="fas fa-venus"></i></div>
+                                <div><h4 class="font-bold text-gray-100 text-sm sm:text-base">عطور نسائية</h4></div>
+                            </div>
+                            <i class="fas fa-chevron-left text-xs text-gray-500"></i>
+                        </button>
+                    </div>
                 </div>
             </section>
 
@@ -385,7 +398,7 @@
                 </div>
 
                 <button type="submit" class="w-full py-3.5 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-xl text-xs shadow-lg mt-4">
-                    تأكيد اختيار العطور وإضافة البوكس للسلة
+                    تأكيد اختيار العطور وإضافة البوكس للسلة (250 ج.م)
                 </button>
             </form>
         </div>
@@ -454,7 +467,7 @@
                     <select id="cust-gov" onchange="handleGovChange()" required class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                         <option value="">-- اختر المحافظة --</option>
                         <option value="giza">الجيزة (توصيل لأقرب محطة مترو - الشحن 30 ج.م)</option>
-                        <option value="cairo">القاهرة الكبرى (توصيل للمنزل)</option>
+                        <option value="cairo">القاهرة الكبرى (توصيل للمنزل - الشحن 50 ج.م)</option>
                     </select>
                 </div>
 
@@ -486,7 +499,7 @@
                 <!-- Greater Cairo Districts -->
                 <div id="cairo-area-section" class="hidden space-y-3">
                     <div>
-                        <label class="block text-xs text-gray-300 mb-1">المنطقة في القاهرة الكبرى</label>
+                        <label class="block text-xs text-gray-300 mb-1">المنطقة في القاهرة الكبرى (الشحن 50 ج.م)</label>
                         <select id="cust-cairo-district" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                             <option value="مدينة نصر">مدينة نصر</option>
                             <option value="مصر الجديدة">مصر الجديدة</option>
@@ -530,7 +543,7 @@
                     </div>
                     <div class="flex justify-between items-center text-xs text-gray-400">
                         <span>مصاريف الشحن:</span>
-                        <span id="checkout-shipping-val" class="text-gold-400">50ج.م</span>
+                        <span id="checkout-shipping-val" class="text-gold-400">0 ج.م</span>
                     </div>
                     <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800 pt-2">
                         <span>إجمالي المبلغ النهائي:</span>
@@ -628,7 +641,6 @@
                         <select id="prod-category" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                             <option value="men">عطور رجالية</option>
                             <option value="women">عطور نسائية</option>
-                            <option value="niche">مجموعة النيش</option>
                         </select>
                     </div>
                 </div>
@@ -679,7 +691,7 @@
             {
                 id: "box_aura",
                 name: "AURA -- BOX",
-                category: "niche",
+                category: "men",
                 price: 250,
                 rating: 5.0,
                 concentration: "مجموعة تجريبية فاخرة",
@@ -689,7 +701,7 @@
             {
                 id: "p1",
                 name: "سلطان العود - Royal Oud",
-                category: "niche",
+                category: "men",
                 price: 1450,
                 rating: 4.9,
                 concentration: "Extrait de Parfum",
@@ -724,7 +736,7 @@
         let settings = JSON.parse(localStorage.getItem('atheer_settings')) || {
             brandName: "AURA",
             brandSlogan: "A U R A • LUXURY PERFUMES",
-            bannerText: "✨ شحن مجاني لجميع الطلبات الفاخرة بمناسبة الافتتاح عند الشراء بأكثر من 1500 ج.م",
+            bannerText: "✨ اطلب بوكس التجربة الملكية واستكشف عطرك المفضل قبل شراء العبوة الكبيرة!",
             adminPassword: "admin123"
         };
 
@@ -734,7 +746,7 @@
         let pendingOrderData = null;
 
         window.onload = function() {
-            // Force fix existing cached box_aura price if it was stored as 2500 in localStorage
+            // Force fix existing cached box_aura price if stored as 2500
             products = products.map(p => {
                 if (p.id === "box_aura" || p.name.includes("AURA -- BOX")) {
                     return { ...p, price: 250 };
@@ -1174,7 +1186,9 @@
         function updateCheckoutTotals() {
             const gov = document.getElementById('cust-gov').value;
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            let shipping = (gov === 'giza') ? 30 : 0;
+            let shipping = 0;
+            if (gov === 'giza') shipping = 30;
+            else if (gov === 'cairo') shipping = 50;
             
             document.getElementById('checkout-subtotal-val').innerText = `${subtotal} ج.م`;
             document.getElementById('checkout-shipping-val').innerText = `${shipping} ج.م`;
@@ -1200,7 +1214,7 @@
                 const district = document.getElementById('cust-cairo-district').value;
                 const street = document.getElementById('cust-street').value;
                 addressDetails = `القاهرة الكبرى - منطقة ${district} - الشارع: ${street}`;
-                shippingFee = 0;
+                shippingFee = 50;
             }
 
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -1444,7 +1458,7 @@
                 settings = {
                     brandName: "AURA",
                     brandSlogan: "A U R A • LUXURY PERFUMES",
-                    bannerText: "✨ شحن مجاني لجميع الطلبات الفاخرة عند الشراء بأكثر من 1500 ج.م",
+                    bannerText: "✨ اطلب بوكس التجربة الملكية واستكشف عطرك المفضل قبل شراء العبوة الكبيرة!",
                     adminPassword: "admin123"
                 };
                 orders = [];
