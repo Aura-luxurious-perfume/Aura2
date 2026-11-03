@@ -300,9 +300,9 @@
 
             <div id="admin-sub-products" class="space-y-6">
                 <div class="flex justify-between items-center">
-                    <h3 class="text-lg font-bold text-gray-200">العطور المسجلة</h3>
+                    <h3 class="text-lg font-bold text-gray-200">العطور والبوكسات المسجلة</h3>
                     <button onclick="openProductModal()" class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-black font-bold rounded-lg text-xs">
-                        <i class="fas fa-plus ml-1"></i> إضافة عطر جديد
+                        <i class="fas fa-plus ml-1"></i> إضافة منتج جديد
                     </button>
                 </div>
 
@@ -311,7 +311,7 @@
                         <thead class="bg-black/50 text-gold-400 uppercase border-b border-gold-500/20">
                             <tr>
                                 <th class="py-3.5 px-4">الصورة</th>
-                                <th class="py-3.5 px-4">اسم العطر</th>
+                                <th class="py-3.5 px-4">الاسم</th>
                                 <th class="py-3.5 px-4">الفئة</th>
                                 <th class="py-3.5 px-4">السعر</th>
                                 <th class="py-3.5 px-4 text-center">إجراءات</th>
@@ -380,7 +380,7 @@
         <div class="glass-panel w-full max-w-xl rounded-3xl p-6 sm:p-8 border border-gold-500/40 relative max-h-[90vh] overflow-y-auto text-right">
             <button onclick="closeBoxModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
 
-            <h3 class="text-xl font-bold text-gold-400 font-serif mb-2">تخصيص بوكس التجربة الملكية (AURA -- BOX)</h3>
+            <h3 id="box-modal-title" class="text-xl font-bold text-gold-400 font-serif mb-2">تخصيص بوكس التجربة الملكية</h3>
             <p class="text-xs text-gray-300 mb-6">اختار 3 عطور مختلفة (كل زجاجة 15 مل) لتكتشف رائحتك المفضلة قبل طلب الزجاجة الكبيرة:</p>
 
             <form onsubmit="confirmBoxSelection(event)" class="space-y-4">
@@ -397,8 +397,8 @@
                     <select id="box-perfume-3" onchange="updateBoxOptions()" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
                 </div>
 
-                <button type="submit" class="w-full py-3.5 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-xl text-xs shadow-lg mt-4">
-                    تأكيد اختيار العطور وإضافة البوكس للسلة 
+                <button type="submit" id="box-submit-btn" class="w-full py-3.5 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-xl text-xs shadow-lg mt-4">
+                    تأكيد اختيار العطور وإضافة البوكس للسلة
                 </button>
             </form>
         </div>
@@ -626,14 +626,14 @@
     <div id="admin-product-modal" class="fixed inset-0 z-50 bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
         <div class="glass-panel w-full max-w-2xl rounded-3xl p-6 border border-gold-500/30 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeAdminProductModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
-            <h3 id="modal-product-title" class="text-xl font-bold text-gold-400 mb-4">إضافة عطر جديد</h3>
+            <h3 id="modal-product-title" class="text-xl font-bold text-gold-400 mb-4">إضافة منتج جديد</h3>
 
             <form id="product-form" onsubmit="handleSaveProduct(event)" class="space-y-4">
                 <input type="hidden" id="edit-prod-id">
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs text-gray-300 mb-1">اسم العطر</label>
+                        <label class="block text-xs text-gray-300 mb-1">اسم المنتج</label>
                         <input type="text" id="prod-name" required class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                     </div>
                     <div>
@@ -651,8 +651,8 @@
                         <input type="number" id="prod-price" required min="1" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                     </div>
                     <div>
-                        <label class="block text-xs text-gray-300 mb-1">التركيز</label>
-                        <input type="text" id="prod-concentration" placeholder="Eau de Parfum" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
+                        <label class="block text-xs text-gray-300 mb-1">التركيز / النوع</label>
+                        <input type="text" id="prod-concentration" placeholder="Eau de Parfum / بوكس تجريبي" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                     </div>
                 </div>
 
@@ -746,15 +746,6 @@
         let pendingOrderData = null;
 
         window.onload = function() {
-            // Force fix existing cached box_aura price if stored as 2500
-            products = products.map(p => {
-                if (p.id === "box_aura" || p.name.includes("AURA -- BOX")) {
-                    return { ...p, price: 250 };
-                }
-                return p;
-            });
-            saveProductsToStorage();
-
             applySettings();
             renderProducts();
             updateCartUI();
@@ -920,10 +911,10 @@
                 return matchCategory && matchSearch;
             });
 
-            // Ensure AURA -- BOX is always rendered first
+            // Ensure AURA -- BOX or products containing BOX are always rendered first
             filtered.sort((a, b) => {
-                if (a.name.includes('AURA -- BOX')) return -1;
-                if (b.name.includes('AURA -- BOX')) return 1;
+                if (a.id === 'box_aura' || a.name.includes('BOX')) return -1;
+                if (b.id === 'box_aura' || b.name.includes('BOX')) return 1;
                 return 0;
             });
 
@@ -939,21 +930,21 @@
 
             grid.innerHTML = filtered.map(p => {
                 const isBest = bestSeller && bestSeller.id === p.id;
-                const isBox = p.name.includes('AURA -- BOX');
+                const isBox = p.id === 'box_aura' || p.name.includes('BOX');
                 return `
                     <div class="glass-panel rounded-2xl p-4 border ${isBox ? 'border-gold-500/70 bg-gold-500/5' : 'border-gold-500/20'} hover:border-gold-500/80 transition-all duration-300 flex flex-col justify-between">
                         <div>
-                            <div class="relative w-full h-56 rounded-xl overflow-hidden bg-black/40 mb-4 cursor-pointer" onclick="${isBox ? 'openBoxModal()' : `openProductDetailModal('${p.id}')`}">
+                            <div class="relative w-full h-56 rounded-xl overflow-hidden bg-black/40 mb-4 cursor-pointer" onclick="${isBox ? `openBoxModal('${p.id}')` : `openProductDetailModal('${p.id}')`}">
                                 ${isBest ? '<span class="absolute top-2 right-2 bg-gold-500 text-black font-extrabold text-[10px] px-2.5 py-1 rounded-md z-10 shadow-lg">الأكثر مبيعاً 🏆</span>' : ''}
                                 ${isBox ? '<span class="absolute top-2 left-2 bg-gradient-to-r from-gold-600 to-gold-400 text-black font-black text-[10px] px-3 py-1 rounded-md z-10 shadow-lg animate-pulse">✨ عرض التجربة الملكية</span>' : ''}
                                 <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
                             </div>
-                            <h4 class="font-bold text-gray-100 text-base cursor-pointer hover:text-gold-400" onclick="${isBox ? 'openBoxModal()' : `openProductDetailModal('${p.id}')`}">${p.name}</h4>
+                            <h4 class="font-bold text-gray-100 text-base cursor-pointer hover:text-gold-400" onclick="${isBox ? `openBoxModal('${p.id}')` : `openProductDetailModal('${p.id}')`}">${p.name}</h4>
                             <p class="text-gray-400 text-xs line-clamp-3 my-2 leading-relaxed">${p.description}</p>
                         </div>
                         <div class="pt-3 border-t border-gray-800 flex justify-between items-center">
                             <span class="text-gold-400 font-extrabold text-base">${p.price} ج.م</span>
-                            <button onclick="${isBox ? 'openBoxModal()' : `addToCart('${p.id}')`}" class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-lg text-xs shadow-md">
+                            <button onclick="${isBox ? `openBoxModal('${p.id}')` : `addToCart('${p.id}')`}" class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-lg text-xs shadow-md">
                                 <i class="fas fa-cart-plus ml-1"></i> ${isBox ? 'تخصيص البوكس الان' : 'إضافـة'}
                             </button>
                         </div>
@@ -962,7 +953,13 @@
             }).join('');
         }
 
-        function openBoxModal() {
+        function openBoxModal(boxId = 'box_aura') {
+            const boxProduct = products.find(p => p.id === boxId) || products.find(p => p.id === 'box_aura');
+            if (boxProduct) {
+                document.getElementById('box-modal-title').innerText = `تخصيص ${boxProduct.name}`;
+                document.getElementById('box-submit-btn').innerText = `تأكيد اختيار العطور وإضافة البوكس للسلة (${boxProduct.price} ج.م)`;
+                window.currentActiveBoxId = boxProduct.id;
+            }
             populateBoxDropdowns();
             document.getElementById('box-selection-modal').classList.add('modal-active');
         }
@@ -972,7 +969,7 @@
         }
 
         function populateBoxDropdowns() {
-            const normalPerfumes = products.filter(p => !p.name.includes('AURA -- BOX'));
+            const normalPerfumes = products.filter(p => p.id !== 'box_aura' && !p.name.includes('BOX'));
             const s1 = document.getElementById('box-perfume-1');
             const s2 = document.getElementById('box-perfume-2');
             const s3 = document.getElementById('box-perfume-3');
@@ -997,7 +994,7 @@
             const s2 = document.getElementById('box-perfume-2').value;
             const s3 = document.getElementById('box-perfume-3').value;
 
-            const normalPerfumes = products.filter(p => !p.name.includes('AURA -- BOX'));
+            const normalPerfumes = products.filter(p => p.id !== 'box_aura' && !p.name.includes('BOX'));
 
             const updateSelectOptions = (selectEl, currentVal, disabledVals) => {
                 selectEl.innerHTML = normalPerfumes.map(p => {
@@ -1022,17 +1019,11 @@
                 return;
             }
 
-            const boxProd = products.find(p => p.id === "box_aura") || {
-                id: "box_aura",
-                name: "AURA -- BOX",
-                price: 250,
-                image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80"
-            };
+            const boxProd = products.find(p => p.id === (window.currentActiveBoxId || 'box_aura')) || products[0];
 
             const boxCartItem = {
                 ...boxProd,
-                price: 250,
-                id: "box_aura_" + Date.now(),
+                id: boxProd.id + "_" + Date.now(),
                 customDetails: `العطور التجريبية المختارة (15 مل لكل زجاجة): [1. ${p1} | 2. ${p2} | 3. ${p3}]`,
                 quantity: 1
             };
@@ -1042,7 +1033,7 @@
             updateCartUI();
             closeBoxModal();
             toggleCartModal(true);
-            showToast("تم إضافة بوكس التجربة الملكية بنجاح!");
+            showToast(`تم إضافة "${boxProd.name}" للسلة بنجاح!`);
         }
 
         function toggleCartModal(show) {
@@ -1055,8 +1046,8 @@
             const product = products.find(p => p.id === productId);
             if (!product) return;
 
-            if (product.id === "box_aura" || product.name.includes("AURA -- BOX")) {
-                openBoxModal();
+            if (product.id === 'box_aura' || product.name.includes('BOX')) {
+                openBoxModal(product.id);
                 return;
             }
 
@@ -1123,8 +1114,8 @@
             const product = products.find(p => p.id === id);
             if (!product) return;
 
-            if (product.name.includes('AURA -- BOX')) {
-                openBoxModal();
+            if (product.id === 'box_aura' || product.name.includes('BOX')) {
+                openBoxModal(product.id);
                 return;
             }
 
@@ -1365,7 +1356,7 @@
         }
 
         function openProductModal() {
-            document.getElementById('modal-product-title').innerText = "إضافة عطر جديد";
+            document.getElementById('modal-product-title').innerText = "إضافة منتج جديد";
             document.getElementById('product-form').reset();
             document.getElementById('edit-prod-id').value = "";
             uploadedImageBase64 = "";
@@ -1381,7 +1372,7 @@
             const p = products.find(item => item.id === id);
             if (!p) return;
 
-            document.getElementById('modal-product-title').innerText = "تعديل العطر";
+            document.getElementById('modal-product-title').innerText = "تعديل المنتج / البوكس";
             document.getElementById('edit-prod-id').value = p.id;
             document.getElementById('prod-name').value = p.name;
             document.getElementById('prod-category').value = p.category;
@@ -1429,7 +1420,7 @@
         }
 
         function deleteProduct(id) {
-            if (confirm("حذف هذا العطر؟")) {
+            if (confirm("حذف هذا المنتج؟")) {
                 products = products.filter(p => p.id !== id);
                 saveProductsToStorage();
                 renderProducts();
