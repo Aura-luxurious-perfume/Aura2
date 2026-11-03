@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA| العطور الفاخرة والنيش</title>
+    <title>AURA | العطور الفاخرة والنيش</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -109,8 +109,8 @@
                     <i class="fas fa-crown text-gold-500 text-lg"></i>
                 </div>
                 <div>
-                    <h1 id="brand-name" class="text-2xl font-black tracking-wider gold-gradient-text font-serif">أثــيـر</h1>
-                    <p id="brand-slogan" class="text-[10px] text-gray-400 tracking-widest uppercase">A T H E E R • LUXURY PERFUMES</p>
+                    <h1 id="brand-name" class="text-2xl font-black tracking-wider gold-gradient-text font-serif">AURA</h1>
+                    <p id="brand-slogan" class="text-[10px] text-gray-400 tracking-widest uppercase">A U R A • LUXURY PERFUMES</p>
                 </div>
             </div>
 
@@ -123,25 +123,20 @@
 
             <!-- Actions (Search, Admin Switch, Cart) -->
             <div class="flex items-center space-x-4 space-x-reverse">
-                
-                <!-- Search Input -->
                 <div class="relative hidden sm:block">
                     <input type="text" id="search-input" oninput="filterProducts()" placeholder="ابحث عن عطر، مكون..." class="bg-black/40 border border-gold-500/30 rounded-full py-1.5 px-4 pr-9 text-xs focus:outline-none focus:border-gold-500 text-gray-200 placeholder-gray-500 w-40 sm:w-56 transition-all">
                     <i class="fas fa-search absolute right-3 top-2.5 text-xs text-gold-500/70"></i>
                 </div>
 
-                <!-- ADMIN CONTROL TRIGGER BUTTON -->
                 <button onclick="handleAdminAccess()" title="لوحة التحكم بالمتجر" class="relative group bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/40 text-gold-400 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all">
                     <i id="admin-lock-icon" class="fas fa-lock text-sm group-hover:rotate-12 transition-transform duration-300"></i>
                     <span class="hidden sm:inline" id="admin-btn-label">لوحة التحكم</span>
                 </button>
 
-                <!-- Cart Icon -->
                 <button onclick="toggleCartModal(true)" class="relative p-2 text-gold-400 hover:text-gold-300 transition-colors">
                     <i class="fas fa-shopping-bag text-xl"></i>
                     <span id="cart-count" class="absolute top-0 right-0 bg-gold-500 text-black text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-darkBg">0</span>
                 </button>
-
             </div>
         </div>
     </header>
@@ -174,16 +169,17 @@
                         </div>
                     </div>
 
+                    <!-- BEST SELLER DYNAMIC HERO CARD -->
                     <div class="relative flex justify-center">
                         <div class="relative w-72 h-96 sm:w-80 sm:h-[450px] rounded-2xl p-6 glass-panel gold-border-glow flex flex-col items-center justify-between group">
-                            <span class="absolute top-4 right-4 bg-gold-500 text-black text-xs font-bold px-3 py-1 rounded-full">الأكثر مبيعاً</span>
+                            <span class="absolute top-4 right-4 bg-gold-500 text-black text-xs font-bold px-3 py-1 rounded-full">الأكثر مبيعاً 🏆</span>
                             <div class="w-full h-64 overflow-hidden rounded-xl flex items-center justify-center relative my-2">
-                                <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Perfume" class="h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                                <img id="hero-bestseller-img" src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Best Seller Perfume" class="h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                             </div>
                             <div class="w-full text-center">
-                                <h3 class="text-lg font-bold text-gold-300">سلطان العود - Royal Oud</h3>
+                                <h3 id="hero-bestseller-title" class="text-lg font-bold text-gold-300">سلطان العود - Royal Oud</h3>
                                 <div class="flex justify-center items-center gap-3 mt-2">
-                                    <span class="text-gold-400 font-extrabold text-xl">1450 ج.م</span>
+                                    <span id="hero-bestseller-price" class="text-gold-400 font-extrabold text-xl">1450 ج.م</span>
                                 </div>
                             </div>
                         </div>
@@ -260,7 +256,7 @@
                 </div>
             </div>
 
-            <!-- Dashboard Stats Summary Cards -->
+            <!-- Dashboard Stats -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-gold-500">
                     <p class="text-xs text-gray-400 mb-1">إجمالي المبيعات</p>
@@ -293,7 +289,6 @@
                 </button>
             </div>
 
-            <!-- SUB-TAB 1: PRODUCTS -->
             <div id="admin-sub-products" class="space-y-6">
                 <div class="flex justify-between items-center">
                     <h3 class="text-lg font-bold text-gray-200">العطور المسجلة</h3>
@@ -318,7 +313,6 @@
                 </div>
             </div>
 
-            <!-- SUB-TAB 2: ORDERS -->
             <div id="admin-sub-orders" class="hidden space-y-6">
                 <div class="flex justify-between items-center">
                     <h3 class="text-lg font-bold text-gray-200">سجل الطلبات</h3>
@@ -342,31 +336,25 @@
                 </div>
             </div>
 
-            <!-- SUB-TAB 3: SETTINGS -->
             <div id="admin-sub-settings" class="hidden max-w-2xl space-y-6">
                 <div class="glass-panel p-6 rounded-2xl space-y-4">
                     <h3 class="text-lg font-bold text-gold-400 border-b border-gold-500/20 pb-3">تخصيص الموقع</h3>
-                    
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">اسم المتجر</label>
                         <input type="text" id="setting-brand-name" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                     </div>
-
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">الشعار</label>
                         <input type="text" id="setting-brand-slogan" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                     </div>
-
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">نص الإعلان العلوي</label>
                         <input type="text" id="setting-banner-text" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                     </div>
-
                     <div class="border-t border-gold-500/20 pt-4">
-                        <label class="block text-xs text-gray-400 mb-1">كلمة المرور الجديدة للوحة التحكم</label>
+                        <label class="block text-xs text-gray-400 mb-1">كلمة المرور الجديدة</label>
                         <input type="password" id="setting-admin-password" placeholder="أدخل كلمة مرور جديدة" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                     </div>
-
                     <button onclick="saveSettings()" class="w-full py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold rounded-lg text-xs">
                         حفظ التعديلات
                     </button>
@@ -378,23 +366,44 @@
 
     <!-- MODALS -->
 
+    <!-- AURA BOX SELECTION MODAL -->
+    <div id="box-selection-modal" class="fixed inset-0 z-50 bg-black/85 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-xl rounded-3xl p-6 sm:p-8 border border-gold-500/40 relative max-h-[90vh] overflow-y-auto text-right">
+            <button onclick="closeBoxModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+
+            <h3 class="text-xl font-bold text-gold-400 font-serif mb-2">تخصيص بوكس AURA -- BOX</h3>
+            <p class="text-xs text-gray-300 mb-6">يرجى اختيار 3 عطور من القائمة التالية لتجهيز صندوقك الخاص:</p>
+
+            <form onsubmit="confirmBoxSelection(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs text-gold-400 font-bold mb-1">العطر الأول:</label>
+                    <select id="box-perfume-1" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
+                </div>
+                <div>
+                    <label class="block text-xs text-gold-400 font-bold mb-1">العطر الثاني:</label>
+                    <select id="box-perfume-2" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
+                </div>
+                <div>
+                    <label class="block text-xs text-gold-400 font-bold mb-1">العطر الثالث:</label>
+                    <select id="box-perfume-3" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-xl text-xs shadow-lg mt-4">
+                    تأكيد وإضافة البوكس للسلة
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- ADMIN LOGIN MODAL -->
     <div id="admin-login-modal" class="fixed inset-0 z-50 bg-black/85 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
         <div class="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 border border-gold-500/40 relative text-center">
             <button onclick="closeAdminLoginModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
-
             <h3 class="text-xl font-bold text-gold-400 mb-4">التحقق من هوية المالك</h3>
-
             <form id="admin-login-form" onsubmit="handleAdminLoginSubmit(event)" class="space-y-4">
                 <input type="password" id="admin-pass-input" required class="w-full bg-black/60 border border-gold-500/40 rounded-xl py-3 px-4 text-center text-sm text-gold-300 tracking-widest focus:outline-none" placeholder="••••••••">
-
-                <div id="admin-login-error" class="hidden text-red-400 text-xs font-semibold">
-                    كلمة المرور غير صحيحة
-                </div>
-
-                <button type="submit" class="w-full py-3.5 bg-gold-500 text-black font-extrabold rounded-xl text-xs">
-                    تأكيد الدخول
-                </button>
+                <div id="admin-login-error" class="hidden text-red-400 text-xs font-semibold">كلمة المرور غير صحيحة</div>
+                <button type="submit" class="w-full py-3.5 bg-gold-500 text-black font-extrabold rounded-xl text-xs">تأكيد الدخول</button>
             </form>
         </div>
     </div>
@@ -407,16 +416,14 @@
                     <h3 class="text-lg font-bold text-gold-400 font-serif">سلة التسوق</h3>
                     <button onclick="toggleCartModal(false)" class="text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
                 </div>
-
                 <div id="cart-items-container" class="space-y-4"></div>
             </div>
 
             <div class="border-t border-gold-500/20 pt-4 mt-6 space-y-4">
                 <div class="flex justify-between items-center text-lg font-black">
-                    <span>الإجمالي:</span>
+                    <span>مجموع المنتجات:</span>
                     <span id="cart-total" class="text-gold-400">0 ج.م</span>
                 </div>
-
                 <button onclick="openCheckoutModal()" class="w-full py-3.5 bg-gold-500 text-black font-extrabold rounded-xl text-sm">
                     إتمام الشراء عبر الواتس اب
                 </button>
@@ -428,7 +435,6 @@
     <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
         <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 border border-gold-500/30 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeCheckoutModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
-
             <h3 class="text-xl font-bold text-gold-400 font-serif mb-4">إتمام الطلب</h3>
 
             <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
@@ -483,9 +489,19 @@
                     </div>
                 </div>
 
-                <div class="border-t border-gray-800 pt-4 flex justify-between items-center text-sm font-bold">
-                    <span>إجمالي المبلغ:</span>
-                    <span id="checkout-total-sum" class="text-gold-400 text-lg">0 ج.م</span>
+                <div class="border-t border-gray-800 pt-3 space-y-1">
+                    <div class="flex justify-between items-center text-xs text-gray-400">
+                        <span>المجموع الفرعي:</span>
+                        <span id="checkout-subtotal-val" class="text-gray-200">0 ج.م</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs text-gray-400">
+                        <span>مصاريف الشحن:</span>
+                        <span id="checkout-shipping-val" class="text-gold-400">0 ج.م</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800 pt-2">
+                        <span>إجمالي المبلغ النهائي:</span>
+                        <span id="checkout-total-sum" class="text-gold-400 text-lg font-black">0 ج.م</span>
+                    </div>
                 </div>
 
                 <button type="submit" class="w-full py-3.5 bg-emerald-600 text-white font-extrabold rounded-xl text-sm mt-4 flex items-center justify-center gap-2">
@@ -538,7 +554,6 @@
                     </div>
                 </div>
 
-                <!-- IMAGE UPLOAD -->
                 <div class="space-y-2 border border-gold-500/20 p-3 rounded-xl bg-black/40">
                     <label class="block text-xs font-bold text-gold-400">صورة المنتج من التليفون أو رابط</label>
                     <input type="file" id="prod-file-input" accept="image/*" onchange="handleImageFileSelect(event)" class="text-xs text-gray-300">
@@ -571,6 +586,16 @@
         const OWNER_WHATSAPP = "201109138404";
 
         const DEFAULT_PRODUCTS = [
+            {
+                id: "box_aura",
+                name: "AURA -- BOX",
+                category: "niche",
+                price: 2500,
+                rating: 5.0,
+                concentration: "مجموعة فاخرة",
+                image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80",
+                description: "صندوق فاخر مخصص يتكون من اختيارك لـ 3 عطور من تشكيلة أثير المتميزة."
+            },
             {
                 id: "p1",
                 name: "سلطان العود - Royal Oud",
@@ -608,7 +633,7 @@
         let orders = JSON.parse(localStorage.getItem('atheer_orders')) || [];
         let settings = JSON.parse(localStorage.getItem('atheer_settings')) || {
             brandName: "AURA",
-            brandSlogan: "A T H E E R • LUXURY PERFUMES",
+            brandSlogan: "A U R A • LUXURY PERFUMES",
             bannerText: "✨ شحن مجاني لجميع الطلبات الفاخرة عند الشراء بأكثر من 1500 ج.م",
             adminPassword: "admin123"
         };
@@ -623,7 +648,46 @@
             updateCartUI();
             updateAdminDashboard();
             updateAdminLockState();
+            updateBestSellerUI();
         };
+
+        // DYNAMIC BEST SELLER LOGIC
+        function getBestSellerProduct() {
+            if (!orders || orders.length === 0) {
+                return products.find(p => p.id !== "box_aura") || products[0];
+            }
+            let salesCount = {};
+            orders.forEach(order => {
+                if (order.items && Array.isArray(order.items)) {
+                    order.items.forEach(item => {
+                        salesCount[item.id] = (salesCount[item.id] || 0) + (item.quantity || 1);
+                    });
+                }
+            });
+
+            let bestId = null;
+            let maxSales = -1;
+            for (let id in salesCount) {
+                if (salesCount[id] > maxSales) {
+                    maxSales = salesCount[id];
+                    bestId = id;
+                }
+            }
+            return products.find(p => p.id === bestId) || products[0];
+        }
+
+        function updateBestSellerUI() {
+            const bestProd = getBestSellerProduct();
+            if (!bestProd) return;
+
+            const imgEl = document.getElementById('hero-bestseller-img');
+            const titleEl = document.getElementById('hero-bestseller-title');
+            const priceEl = document.getElementById('hero-bestseller-price');
+
+            if (imgEl) imgEl.src = bestProd.image;
+            if (titleEl) titleEl.innerText = bestProd.name;
+            if (priceEl) priceEl.innerText = `${bestProd.price} ج.م`;
+        }
 
         function updateAdminLockState() {
             const lockIcon = document.getElementById('admin-lock-icon');
@@ -766,11 +830,64 @@
                     <div class="pt-3 border-t border-gray-800 flex justify-between items-center">
                         <span class="text-gold-400 font-extrabold text-base">${p.price} ج.م</span>
                         <button onclick="addToCart('${p.id}')" class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-lg text-xs">
-                            <i class="fas fa-cart-plus ml-1"></i> إضافـة
+                            <i class="fas fa-cart-plus ml-1"></i> ${p.name.includes('AURA -- BOX') ? 'تخصيص البوكس' : 'إضافـة'}
                         </button>
                     </div>
                 </div>
             `).join('');
+        }
+
+        // AURA BOX CUSTOM SELECTION LOGIC
+        function openBoxModal() {
+            const select1 = document.getElementById('box-perfume-1');
+            const select2 = document.getElementById('box-perfume-2');
+            const select3 = document.getElementById('box-perfume-3');
+
+            const normalPerfumes = products.filter(p => !p.name.includes('AURA -- BOX'));
+            const optionsHtml = normalPerfumes.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+
+            select1.innerHTML = optionsHtml;
+            select2.innerHTML = optionsHtml;
+            select3.innerHTML = optionsHtml;
+
+            if (normalPerfumes.length >= 3) {
+                select2.selectedIndex = 1;
+                select3.selectedIndex = 2;
+            }
+
+            document.getElementById('box-selection-modal').classList.add('modal-active');
+        }
+
+        function closeBoxModal() {
+            document.getElementById('box-selection-modal').classList.remove('modal-active');
+        }
+
+        function confirmBoxSelection(e) {
+            e.preventDefault();
+            const p1 = document.getElementById('box-perfume-1').value;
+            const p2 = document.getElementById('box-perfume-2').value;
+            const p3 = document.getElementById('box-perfume-3').value;
+
+            const boxProd = products.find(p => p.id === "box_aura") || {
+                id: "box_aura",
+                name: "AURA -- BOX",
+                price: 2500,
+                image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80"
+            };
+
+            const boxCartItem = {
+                ...boxProd,
+                id: "box_aura_" + Date.now(),
+                customDetails: `العطور المحددة: [1. ${p1} | 2. ${p2} | 3. ${p3}]`,
+                quantity: 1
+            };
+
+            cart.push(boxCartItem);
+            saveCartToStorage();
+            updateCartUI();
+            closeBoxModal();
+            toggleCartModal(true);
+            showToast("تم إضافة AURA -- BOX المخصص لسلتك");
         }
 
         function toggleCartModal(show) {
@@ -782,6 +899,11 @@
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
+
+            if (product.id === "box_aura" || product.name.includes("AURA -- BOX")) {
+                openBoxModal();
+                return;
+            }
 
             const existing = cart.find(item => item.id === productId);
             if (existing) existing.quantity += 1;
@@ -826,6 +948,7 @@
                         <img src="${item.image}" class="w-12 h-12 object-cover rounded-lg">
                         <div class="flex-grow">
                             <h5 class="text-xs font-bold text-gray-200">${item.name}</h5>
+                            ${item.customDetails ? `<p class="text-[10px] text-gold-400 mt-0.5">${item.customDetails}</p>` : ''}
                             <span class="text-gold-400 text-xs">${item.price} ج.م</span>
                             <div class="flex items-center gap-2 mt-1">
                                 <button onclick="updateCartQuantity('${item.id}', -1)" class="w-5 h-5 rounded bg-gray-800 text-gold-400">-</button>
@@ -857,7 +980,9 @@
                     <p class="text-xs text-gray-300">${product.description}</p>
                     <div class="flex items-center justify-between border-t border-gray-800 pt-3">
                         <span class="text-2xl font-black text-gold-400">${product.price} ج.م</span>
-                        <button onclick="addToCart('${product.id}'); closeProductDetailModal();" class="px-6 py-3 bg-gold-500 text-black font-extrabold rounded-xl text-xs">إضافة للسلة</button>
+                        <button onclick="addToCart('${product.id}'); closeProductDetailModal();" class="px-6 py-3 bg-gold-500 text-black font-extrabold rounded-xl text-xs">
+                            ${product.name.includes('AURA -- BOX') ? 'تخصيص البوكس' : 'إضافة للسلة'}
+                        </button>
                     </div>
                 </div>
             `;
@@ -904,6 +1029,9 @@
             const gov = document.getElementById('cust-gov').value;
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             let shipping = (gov === 'giza') ? 30 : 0;
+            
+            document.getElementById('checkout-subtotal-val').innerText = `${subtotal} ج.م`;
+            document.getElementById('checkout-shipping-val').innerText = `${shipping} ج.م`;
             document.getElementById('checkout-total-sum').innerText = `${subtotal + shipping} ج.م`;
         }
 
@@ -926,6 +1054,7 @@
                 const district = document.getElementById('cust-cairo-district').value;
                 const street = document.getElementById('cust-street').value;
                 addressDetails = `القاهرة - منطقة ${district} - الشارع: ${street}`;
+                shippingFee = 0;
             }
 
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -938,6 +1067,8 @@
                 phone: phone,
                 address: addressDetails,
                 items: [...cart],
+                subtotal: subtotal,
+                shippingFee: shippingFee,
                 totalAmount: grandTotal,
                 status: "قيد الانتظار"
             };
@@ -953,8 +1084,13 @@
             waMsg += `🛍️ *المنتجات:*\n`;
             cart.forEach((item, index) => {
                 waMsg += `${index + 1}. ${item.name} (x${item.quantity}) - ${item.price * item.quantity} ج.م\n`;
+                if (item.customDetails) {
+                    waMsg += `   └ ${item.customDetails}\n`;
+                }
             });
-            waMsg += `\n💰 *الإجمالي النهائي:* ${grandTotal} ج.م\n`;
+            waMsg += `\n💵 *المجموع الفرعي:* ${subtotal} ج.م\n`;
+            waMsg += `🚚 *مصاريف الشحن:* ${shippingFee} ج.م\n`;
+            waMsg += `💰 *الإجمالي النهائي المطلوب:* ${grandTotal} ج.م\n`;
 
             cart = [];
             saveCartToStorage();
@@ -963,6 +1099,9 @@
 
             const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(waMsg)}`;
             window.open(waUrl, '_blank');
+
+            updateAdminDashboard();
+            updateBestSellerUI();
         }
 
         function updateAdminDashboard() {
@@ -1124,8 +1263,8 @@
                 localStorage.clear();
                 products = [...DEFAULT_PRODUCTS];
                 settings = {
-                    brandName: "Aura",
-                    brandSlogan: "A U R A  • LUXURY PERFUMES",
+                    brandName: "AURA",
+                    brandSlogan: "A U R A • LUXURY PERFUMES",
                     bannerText: "✨ شحن مجاني لجميع الطلبات الفاخرة عند الشراء بأكثر من 1500 ج.م",
                     adminPassword: "admin123"
                 };
@@ -1133,6 +1272,7 @@
                 applySettings();
                 renderProducts();
                 updateAdminDashboard();
+                updateBestSellerUI();
                 showToast("تم إعادة الضبط");
             }
         }
@@ -1142,6 +1282,7 @@
                 orders = [];
                 saveOrdersToStorage();
                 updateAdminDashboard();
+                updateBestSellerUI();
             }
         }
 
