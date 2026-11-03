@@ -102,8 +102,6 @@
     <!-- MAIN NAVBAR -->
     <header class="sticky top-0 z-40 glass-panel border-b border-gold-500/20 px-4 lg:px-12 py-4">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            
-            <!-- Logo -->
             <div class="flex items-center space-x-3 space-x-reverse cursor-pointer" onclick="switchTab('shop')">
                 <div class="w-10 h-10 rounded-full border-2 border-gold-500 flex items-center justify-center bg-black/50 shadow-lg shadow-gold-500/20">
                     <i class="fas fa-crown text-gold-500 text-lg"></i>
@@ -114,17 +112,15 @@
                 </div>
             </div>
 
-            <!-- Navigation Links -->
             <nav class="hidden md:flex items-center space-x-8 space-x-reverse font-medium text-sm">
                 <a href="#hero" onclick="switchTab('shop')" class="hover:text-gold-400 transition-colors cursor-pointer py-1 border-b-2 border-transparent hover:border-gold-500">الرئيسية</a>
                 <a href="#categories" onclick="switchTab('shop')" class="hover:text-gold-400 transition-colors cursor-pointer py-1 border-b-2 border-transparent hover:border-gold-500">المجموعات</a>
                 <a href="#products" onclick="switchTab('shop')" class="hover:text-gold-400 transition-colors cursor-pointer py-1 border-b-2 border-transparent hover:border-gold-500">كل العطور</a>
             </nav>
 
-            <!-- Actions (Search, Admin Switch, Cart) -->
             <div class="flex items-center space-x-4 space-x-reverse">
                 <div class="relative hidden sm:block">
-                    <input type="text" id="search-input" oninput="filterProducts()" placeholder="ابحث عن عطر، مكون..." class="bg-black/40 border border-gold-500/30 rounded-full py-1.5 px-4 pr-9 text-xs focus:outline-none focus:border-gold-500 text-gray-200 placeholder-gray-500 w-40 sm:w-56 transition-all">
+                    <input type="text" id="search-input" oninput="filterProducts()" placeholder="ابحث عن عطر..." class="bg-black/40 border border-gold-500/30 rounded-full py-1.5 px-4 pr-9 text-xs focus:outline-none focus:border-gold-500 text-gray-200 placeholder-gray-500 w-40 sm:w-56 transition-all">
                     <i class="fas fa-search absolute right-3 top-2.5 text-xs text-gold-500/70"></i>
                 </div>
 
@@ -169,12 +165,12 @@
                         </div>
                     </div>
 
-                    <!-- BEST SELLER DYNAMIC HERO CARD -->
+                    <!-- BEST SELLER HERO CARD -->
                     <div class="relative flex justify-center">
                         <div class="relative w-72 h-96 sm:w-80 sm:h-[450px] rounded-2xl p-6 glass-panel gold-border-glow flex flex-col items-center justify-between group">
-                            <span class="absolute top-4 right-4 bg-gold-500 text-black text-xs font-bold px-3 py-1 rounded-full">الأكثر مبيعاً 🏆</span>
+                            <span class="absolute top-4 right-4 bg-gold-500 text-black text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">الأكثر مبيعاً 🏆</span>
                             <div class="w-full h-64 overflow-hidden rounded-xl flex items-center justify-center relative my-2">
-                                <img id="hero-bestseller-img" src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Best Seller Perfume" class="h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                                <img id="hero-bestseller-img" src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Best Seller" class="h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                             </div>
                             <div class="w-full text-center">
                                 <h3 id="hero-bestseller-title" class="text-lg font-bold text-gold-300">سلطان العود - Royal Oud</h3>
@@ -235,7 +231,7 @@
             </section>
         </div>
 
-        <!-- DYNAMIC ADMIN PANEL VIEW -->
+        <!-- ADMIN PANEL -->
         <div id="admin-view" class="hidden max-w-7xl mx-auto px-4 sm:px-6 py-8">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-gold-500/30 pb-6 mb-8 gap-4">
                 <div>
@@ -372,20 +368,20 @@
             <button onclick="closeBoxModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
 
             <h3 class="text-xl font-bold text-gold-400 font-serif mb-2">تخصيص بوكس AURA -- BOX</h3>
-            <p class="text-xs text-gray-300 mb-6">يرجى اختيار 3 عطور من القائمة التالية لتجهيز صندوقك الخاص:</p>
+            <p class="text-xs text-gray-300 mb-6">يرجى اختيار 3 عطور مختلفة من القائمة:</p>
 
             <form onsubmit="confirmBoxSelection(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs text-gold-400 font-bold mb-1">العطر الأول:</label>
-                    <select id="box-perfume-1" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
+                    <select id="box-perfume-1" onchange="updateBoxOptions()" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
                 </div>
                 <div>
                     <label class="block text-xs text-gold-400 font-bold mb-1">العطر الثاني:</label>
-                    <select id="box-perfume-2" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
+                    <select id="box-perfume-2" onchange="updateBoxOptions()" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
                 </div>
                 <div>
                     <label class="block text-xs text-gold-400 font-bold mb-1">العطر الثالث:</label>
-                    <select id="box-perfume-3" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
+                    <select id="box-perfume-3" onchange="updateBoxOptions()" required class="w-full bg-black/60 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white focus:outline-none"></select>
                 </div>
 
                 <button type="submit" class="w-full py-3.5 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-xl text-xs shadow-lg mt-4">
@@ -435,7 +431,13 @@
     <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
         <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 border border-gold-500/30 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeCheckoutModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
-            <h3 class="text-xl font-bold text-gold-400 font-serif mb-4">إتمام الطلب</h3>
+            <h3 class="text-xl font-bold text-gold-400 font-serif mb-2">إتمام الطلب</h3>
+            
+            <!-- Delivery Notice Banner -->
+            <div class="bg-gold-500/10 border border-gold-500/30 rounded-xl p-3 mb-4 flex items-center gap-3 text-gold-300 text-xs">
+                <i class="fas fa-truck-fast text-lg text-gold-400"></i>
+                <span>ملاحظة: <strong>التوصيل خلال 3 أيام عمل</strong> كحد أقصى لجميع المحافظات.</span>
+            </div>
 
             <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
                 <div>
@@ -457,8 +459,9 @@
                     </select>
                 </div>
 
+                <!-- Giza Metro Stations -->
                 <div id="giza-metro-section" class="hidden space-y-3 bg-amber-500/10 p-3.5 rounded-xl border border-amber-500/30">
-                    <p class="text-xs text-amber-300 font-bold">التوصيل بمحافظة الجيزة لأقرب محطة مترو (الشحن 30 ج.م)</p>
+                    <p class="text-xs text-amber-300 font-bold">اختر أقرب محطة مترو بالجيزة (الشحن 30 ج.م)</p>
                     <select id="cust-metro-station" class="w-full bg-black/80 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                         <option value="محطة جامعة القاهرة">محطة جامعة القاهرة</option>
                         <option value="محطة فيصل">محطة فيصل</option>
@@ -466,25 +469,57 @@
                         <option value="محطة البحوث">محطة البحوث</option>
                         <option value="محطة الدقي">محطة الدقي</option>
                         <option value="محطة الأوبرا">محطة الأوبرا</option>
+                        <option value="محطة المنيب">محطة المنيب</option>
+                        <option value="محطة ساقية مكي">محطة ساقية مكي</option>
+                        <option value="محطة أم المصريين">محطة أم المصريين</option>
+                        <option value="محطة بولاق الدكرور">محطة بولاق الدكرور</option>
+                        <option value="محطة القومي للإدارة">محطة القومي للإدارة</option>
+                        <option value="محطة أرض اللواء">محطة أرض اللواء</option>
+                        <option value="محطة السودان">محطة السودان</option>
                         <option value="محطة إمبابة">محطة إمبابة</option>
+                        <option value="محطة البوهي">محطة البوهي</option>
+                        <option value="محطة القومية العربية">محطة القومية العربية</option>
+                        <option value="محطة الطريق الدائري">محطة الطريق الدائري</option>
+                        <option value="محطة محور روض الفرج">محطة محور روض الفرج</option>
                     </select>
                 </div>
 
+                <!-- Greater Cairo Districts -->
                 <div id="cairo-area-section" class="hidden space-y-3">
                     <div>
-                        <label class="block text-xs text-gray-300 mb-1">المنطقة</label>
+                        <label class="block text-xs text-gray-300 mb-1">المنطقة في القاهرة الكبرى</label>
                         <select id="cust-cairo-district" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                             <option value="مدينة نصر">مدينة نصر</option>
                             <option value="مصر الجديدة">مصر الجديدة</option>
                             <option value="التجمع الخامس">التجمع الخامس</option>
+                            <option value="التجمع الأول">التجمع الأول</option>
+                            <option value="الرحاب">الرحاب</option>
+                            <option value="مدينتي">مدينتي</option>
                             <option value="المعادي">المعادي</option>
                             <option value="وسط البلد">وسط البلد</option>
                             <option value="شبرا">شبرا</option>
+                            <option value="شبرا الخيمة">شبرا الخيمة</option>
+                            <option value="المقطم">المقطم</option>
+                            <option value="العباسية">العباسية</option>
+                            <option value="الزمالك">الزمالك</option>
+                            <option value="جاردن سيتي">جاردن سيتي</option>
+                            <option value="عين شمس">عين شمس</option>
+                            <option value="المطرية">المطرية</option>
+                            <option value="المحلة / حلوان">حلوان</option>
+                            <option value="المعصرة">المعصرة</option>
+                            <option value="المرج">المرج</option>
+                            <option value="السلام">السلام</option>
+                            <option value="الزهراء">الزهراء</option>
+                            <option value="الخصوص">الخصوص</option>
+                            <option value="أبو رواش">أبو رواش</option>
+                            <option value="الشيخ زايد">الشيخ زايد</option>
+                            <option value="6 أكتوبر">6 أكتوبر</option>
+                            <option value="هليوبوليس">هليوبوليس</option>
                         </select>
                     </div>
 
                     <div>
-                        <label class="block text-xs text-gray-300 mb-1">اسم الشارع</label>
+                        <label class="block text-xs text-gray-300 mb-1">اسم الشارع ورقم العمارة</label>
                         <input type="text" id="cust-street" class="w-full bg-black/50 border border-gold-500/30 rounded-lg p-2.5 text-xs text-white">
                     </div>
                 </div>
@@ -594,7 +629,7 @@
                 rating: 5.0,
                 concentration: "مجموعة فاخرة",
                 image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80",
-                description: "صندوق فاخر مخصص يتكون من اختيارك لـ 3 عطور من تشكيلة أثير المتميزة."
+                description: "صندوق فاخر مخصص يتكون من اختيارك لـ 3 عطور مختلفة."
             },
             {
                 id: "p1",
@@ -604,7 +639,7 @@
                 rating: 4.9,
                 concentration: "Extrait de Parfum",
                 image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80",
-                description: "عطر ملوكي فاخر مستوحى من أندر أنواع العود الكمبودي المعتق."
+                description: "عطر ملوكي فاخر مستوحى من أندر أنواع العود."
             },
             {
                 id: "p2",
@@ -651,7 +686,6 @@
             updateBestSellerUI();
         };
 
-        // DYNAMIC BEST SELLER LOGIC
         function getBestSellerProduct() {
             if (!orders || orders.length === 0) {
                 return products.find(p => p.id !== "box_aura") || products[0];
@@ -801,6 +835,7 @@
             const grid = document.getElementById('product-grid');
             const searchVal = document.getElementById('search-input').value.toLowerCase().trim();
             const sortVal = document.getElementById('sort-select').value;
+            const bestSeller = getBestSellerProduct();
 
             let filtered = products.filter(p => {
                 const matchCategory = (currentCategory === 'all') || (p.category === currentCategory);
@@ -818,43 +853,31 @@
                 return;
             }
 
-            grid.innerHTML = filtered.map(p => `
-                <div class="glass-panel rounded-2xl p-4 border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="relative w-full h-56 rounded-xl overflow-hidden bg-black/40 mb-4 cursor-pointer" onclick="openProductDetailModal('${p.id}')">
-                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
+            grid.innerHTML = filtered.map(p => {
+                const isBest = bestSeller && bestSeller.id === p.id;
+                return `
+                    <div class="glass-panel rounded-2xl p-4 border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative w-full h-56 rounded-xl overflow-hidden bg-black/40 mb-4 cursor-pointer" onclick="openProductDetailModal('${p.id}')">
+                                ${isBest ? '<span class="absolute top-2 right-2 bg-gold-500 text-black font-extrabold text-[10px] px-2.5 py-1 rounded-md z-10 shadow-lg">الأكثر مبيعاً 🏆</span>' : ''}
+                                <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-bold text-gray-100 text-base cursor-pointer hover:text-gold-400" onclick="openProductDetailModal('${p.id}')">${p.name}</h4>
+                            <p class="text-gray-400 text-xs line-clamp-2 my-2 leading-relaxed">${p.description}</p>
                         </div>
-                        <h4 class="font-bold text-gray-100 text-base cursor-pointer hover:text-gold-400" onclick="openProductDetailModal('${p.id}')">${p.name}</h4>
-                        <p class="text-gray-400 text-xs line-clamp-2 my-2 leading-relaxed">${p.description}</p>
+                        <div class="pt-3 border-t border-gray-800 flex justify-between items-center">
+                            <span class="text-gold-400 font-extrabold text-base">${p.price} ج.م</span>
+                            <button onclick="addToCart('${p.id}')" class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-lg text-xs shadow-md">
+                                <i class="fas fa-cart-plus ml-1"></i> ${p.name.includes('AURA -- BOX') ? 'تخصيص البوكس' : 'إضافـة'}
+                            </button>
+                        </div>
                     </div>
-                    <div class="pt-3 border-t border-gray-800 flex justify-between items-center">
-                        <span class="text-gold-400 font-extrabold text-base">${p.price} ج.م</span>
-                        <button onclick="addToCart('${p.id}')" class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-black font-extrabold rounded-lg text-xs">
-                            <i class="fas fa-cart-plus ml-1"></i> ${p.name.includes('AURA -- BOX') ? 'تخصيص البوكس' : 'إضافـة'}
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        // AURA BOX CUSTOM SELECTION LOGIC
         function openBoxModal() {
-            const select1 = document.getElementById('box-perfume-1');
-            const select2 = document.getElementById('box-perfume-2');
-            const select3 = document.getElementById('box-perfume-3');
-
-            const normalPerfumes = products.filter(p => !p.name.includes('AURA -- BOX'));
-            const optionsHtml = normalPerfumes.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
-
-            select1.innerHTML = optionsHtml;
-            select2.innerHTML = optionsHtml;
-            select3.innerHTML = optionsHtml;
-
-            if (normalPerfumes.length >= 3) {
-                select2.selectedIndex = 1;
-                select3.selectedIndex = 2;
-            }
-
+            populateBoxDropdowns();
             document.getElementById('box-selection-modal').classList.add('modal-active');
         }
 
@@ -862,11 +885,56 @@
             document.getElementById('box-selection-modal').classList.remove('modal-active');
         }
 
+        function populateBoxDropdowns() {
+            const normalPerfumes = products.filter(p => !p.name.includes('AURA -- BOX'));
+            const s1 = document.getElementById('box-perfume-1');
+            const s2 = document.getElementById('box-perfume-2');
+            const s3 = document.getElementById('box-perfume-3');
+
+            const val1 = s1.value;
+            const val2 = s2.value;
+            const val3 = s3.value;
+
+            const makeOptions = (selectedVal) => {
+                return normalPerfumes.map(p => `<option value="${p.name}" ${p.name === selectedVal ? 'selected' : ''}>${p.name}</option>`).join('');
+            };
+
+            s1.innerHTML = makeOptions(val1 || normalPerfumes[0]?.name);
+            s2.innerHTML = makeOptions(val2 || normalPerfumes[1]?.name || normalPerfumes[0]?.name);
+            s3.innerHTML = makeOptions(val3 || normalPerfumes[2]?.name || normalPerfumes[0]?.name);
+
+            updateBoxOptions();
+        }
+
+        function updateBoxOptions() {
+            const s1 = document.getElementById('box-perfume-1').value;
+            const s2 = document.getElementById('box-perfume-2').value;
+            const s3 = document.getElementById('box-perfume-3').value;
+
+            const normalPerfumes = products.filter(p => !p.name.includes('AURA -- BOX'));
+
+            const updateSelectOptions = (selectEl, currentVal, disabledVals) => {
+                selectEl.innerHTML = normalPerfumes.map(p => {
+                    const isDisabled = disabledVals.includes(p.name) && p.name !== currentVal;
+                    return `<option value="${p.name}" ${isDisabled ? 'disabled class="text-gray-600"' : ''} ${p.name === currentVal ? 'selected' : ''}>${p.name} ${isDisabled ? '(تم اختياره)' : ''}</option>`;
+                }).join('');
+            };
+
+            updateSelectOptions(document.getElementById('box-perfume-1'), s1, [s2, s3]);
+            updateSelectOptions(document.getElementById('box-perfume-2'), s2, [s1, s3]);
+            updateSelectOptions(document.getElementById('box-perfume-3'), s3, [s1, s2]);
+        }
+
         function confirmBoxSelection(e) {
             e.preventDefault();
             const p1 = document.getElementById('box-perfume-1').value;
             const p2 = document.getElementById('box-perfume-2').value;
             const p3 = document.getElementById('box-perfume-3').value;
+
+            if (p1 === p2 || p1 === p3 || p2 === p3) {
+                alert("لا يمكن اختيار نفس العطر مرتين داخل البوكس! يرجى اختيار 3 عطور مختلفة.");
+                return;
+            }
 
             const boxProd = products.find(p => p.id === "box_aura") || {
                 id: "box_aura",
@@ -878,7 +946,7 @@
             const boxCartItem = {
                 ...boxProd,
                 id: "box_aura_" + Date.now(),
-                customDetails: `العطور المحددة: [1. ${p1} | 2. ${p2} | 3. ${p3}]`,
+                customDetails: `العطور المختارة: [1. ${p1} | 2. ${p2} | 3. ${p3}]`,
                 quantity: 1
             };
 
@@ -1053,7 +1121,7 @@
             } else {
                 const district = document.getElementById('cust-cairo-district').value;
                 const street = document.getElementById('cust-street').value;
-                addressDetails = `القاهرة - منطقة ${district} - الشارع: ${street}`;
+                addressDetails = `القاهرة الكبرى - منطقة ${district} - الشارع: ${street}`;
                 shippingFee = 0;
             }
 
@@ -1080,7 +1148,8 @@
             waMsg += `📌 *رقم الطلب:* ${orderId}\n`;
             waMsg += `👤 *الاسم:* ${name}\n`;
             waMsg += `📞 *الهاتف:* ${phone}\n`;
-            waMsg += `📍 *العنوان:* ${addressDetails}\n\n`;
+            waMsg += `📍 *العنوان:* ${addressDetails}\n`;
+            waMsg += `🚚 *ميعاد التوصيل المتوقع:* خلال 3 أيام عمل\n\n`;
             waMsg += `🛍️ *المنتجات:*\n`;
             cart.forEach((item, index) => {
                 waMsg += `${index + 1}. ${item.name} (x${item.quantity}) - ${item.price * item.quantity} ج.م\n`;
@@ -1102,6 +1171,7 @@
 
             updateAdminDashboard();
             updateBestSellerUI();
+            renderProducts();
         }
 
         function updateAdminDashboard() {
@@ -1283,6 +1353,7 @@
                 saveOrdersToStorage();
                 updateAdminDashboard();
                 updateBestSellerUI();
+                renderProducts();
             }
         }
 
